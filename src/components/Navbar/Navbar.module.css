@@ -1,0 +1,14 @@
+.nav{
+    grid-area: n;
+    background-color: #202225;
+    min-height: 60em;
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    row-gap: 2em;
+}
+
+
+.active{
+    color: red;
+}

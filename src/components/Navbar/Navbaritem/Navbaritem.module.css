@@ -1,0 +1,10 @@
+.item a{
+    list-style-type: none;
+    outline: none;
+    color: white;
+    text-decoration: none;
+}
+
+.item a.active{
+    color: red;
+}

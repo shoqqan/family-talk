@@ -1,0 +1,13 @@
+
+.dark {
+    background-color: #333;
+    color: #FEFEFE;
+    height: 100vh;
+
+}
+.light {
+    background-color: #FEFEFE;
+    color: #2F3136;
+    height: 100vh;
+
+}

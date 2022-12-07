@@ -1,0 +1,24 @@
+.wallpaper img{
+    height: 30vh;
+    border-radius: 2%;
+}
+.profile{
+    display: flex;
+    column-gap: 10%;
+    background-color: #202225;
+}
+.avatar{
+    flex-basis: 15%;
+    margin-top: -10em;
+    margin-left: 3em;
+
+}
+.avatar img{
+    border-radius: 10%;
+    height: 30vh;
+    border: 6px solid #2F3136;
+}
+.description{
+    align-self: center;
+    color: #FEFEFE;
+}

@@ -1,0 +1,19 @@
+.parentContainer{
+    display:flex;
+}
+
+.postText{
+    color: #DCDDDE;
+}
+
+.postInfo{
+    display: flex;
+    column-gap: 0.7em;
+}
+
+.postName{
+    font-weight: bold;
+    margin-top: 0.5%;
+    color: #FFFFFF;
+    font-size: 13px;
+}
