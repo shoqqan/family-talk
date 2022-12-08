@@ -7,9 +7,9 @@ import {PostTypeNews} from "../../redux/reducers/newsReducer";
 export const News = () => {
     const posts = useSelector<AppStateType, PostTypeNews[]>(state => state.newsPage.posts)
     return (
-        <div>
-            {posts.map((post)=>{
-                return <Post name={post.name} id={post.postId} image={''} avatar={post.avatar} postText={post.postText} likes={1} dislikes={2}/>
+        <div style={{marginLeft: 400}}>
+            {posts.map((post) => {
+                return <Post author={post.author} id={post.postId} image={post.image} postText={post.postText}/>
             })}
         </div>
     );

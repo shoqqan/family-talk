@@ -3,13 +3,21 @@ import {Button, Link, TextField} from "@mui/material";
 import {Sheet} from "@mui/joy";
 import Typography from "@mui/joy/Typography";
 import {useFormik} from "formik";
-
+import axios from "axios";
+import {MyAvatar} from "../../redux/reducers/profileReducer";
+export const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibG9naW4iOiJrc2RhZGEiLCJpYXQiOjE2NzA1MzQ3NzksImV4cCI6MTY3MDYyMTE3OX0.nnj1Hm9S3yB-JPMDIVO4lhSGE-fwPX4Z4RdKV6qTeG0"
 const validate = (values: any) => {
     const errors: any = {};
-    if (!values.familyName) {
-        errors.familyName = 'Required';
-    } else if (values.familyName.length > 15) {
-        errors.familyName = 'Must be 15 characters or less';
+    if (!values.name) {
+        errors.name = 'Required';
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        errors.email = 'Invalid name';
+    }
+
+    if (!values.login) {
+        errors.login = 'Required';
+    } else if (values.login.length > 15) {
+        errors.login = 'Must be 15 characters or less';
     }
 
 
@@ -31,20 +39,40 @@ const validate = (values: any) => {
     }
     return errors;
 };
-const SignUpUser = () => {
+export const SignUpUser = () => {
     const formik = useFormik({
         initialValues: {
-            familyName: '',
-            email: '',
+            name: '',
+            login: '',
             password: '',
             secondPassword: '',
-            familyImage: ''
-        }, validate,
-        onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
-        },
-    });
 
+        }, validate,
+        onSubmit: ({name, login, password}) => {
+            alert(JSON.stringify(name, null, 2));
+            axios.post('https://family-talk.up.railway.app/auth/registration', {
+                login,
+                password,
+                name,
+                picture:MyAvatar,
+                family_space_id:1
+            }).then((res) => {
+                console.log(res.data);
+            })
+        },
+
+    });
+    const get = () =>{
+        axios.post('https://family-talk.up.railway.app/auth/registration', {
+            login:'ksdada',
+            password:'12314',
+            name:'Shoqan',
+            picture:MyAvatar,
+            family_space_id:1
+        }).then((res) => {
+            console.log(res.data);
+        })
+    }
     return (
         <form onSubmit={formik.handleSubmit}>
             <Sheet variant="outlined" sx={{
@@ -61,35 +89,47 @@ const SignUpUser = () => {
             }}>
                 <div>
                     <Typography sx={{marginBottom: 2, fontWeight: 'bold', fontSize: 25}} level="h4" component="h1">
-                        Registration FamilyTalk!
+                        Registration User!
                     </Typography>
-                    <Typography level="body2" color={"neutral"}>Sign up your family to
-                        continue.</Typography>
+                    <Typography level="body2" color={"neutral"}>Sign up user!</Typography>
                 </div>
                 <TextField
-                    value={formik.values.familyName}
+                    value={formik.values.name}
                     onChange={formik.handleChange}
                     // html input attribute
-                    name="familyName"
+                    name="name"
                     type="text"
-                    placeholder="f.e 'Tatayev's name"
+                    placeholder="f.e. 'Shoqan Tataev'"
                     // pass down to FormLabel as children
-                    label="Family name"
-                    error={formik.touched.familyName && Boolean(formik.errors.familyName)}
-                    helperText={formik.touched.familyName && formik.errors.familyName}
+                    label="Enter your name"
+                    error={formik.touched.name && Boolean(formik.errors.name)}
+                    helperText={formik.touched.name && formik.errors.name}
                 />
                 <TextField
-                    // html input attribute
-                    value={formik.values.email}
+                    value={formik.values.login}
                     onChange={formik.handleChange}
-                    name="email"
-                    type="email"
-                    placeholder="johndoe@email.com"
+                    // html input attribute
+                    name="login"
+                    type="text"
+                    placeholder="f.e. 'shoqqan'"
                     // pass down to FormLabel as children
-                    label="Email"
-                    error={formik.touched.email && Boolean(formik.errors.email)}
-                    helperText={formik.touched.email && formik.errors.email}
+                    label="Enter your login"
+                    error={formik.touched.login && Boolean(formik.errors.login)}
+                    helperText={formik.touched.login && formik.errors.login}
                 />
+
+                {/*<TextField*/}
+                {/*    // html input attribute*/}
+                {/*    value={formik.values.email}*/}
+                {/*    onChange={formik.handleChange}*/}
+                {/*    name="email"*/}
+                {/*    type="email"*/}
+                {/*    placeholder="johndoe@email.com"*/}
+                {/*    // pass down to FormLabel as children*/}
+                {/*    label="Email"*/}
+                {/*    error={formik.touched.email && Boolean(formik.errors.email)}*/}
+                {/*    helperText={formik.touched.email && formik.errors.email}*/}
+                {/*/>*/}
                 <TextField
                     value={formik.values.password}
                     onChange={formik.handleChange}
@@ -112,28 +152,30 @@ const SignUpUser = () => {
                     helperText={formik.touched.secondPassword && formik.errors.secondPassword}
                 />
 
-                <TextField
-                    id="input-with-icon-textfield"
-                    label="Family Avatar *"
-                    variant="outlined"
+                {/*<TextField*/}
+                {/*    id="input-with-icon-textfield"*/}
+                {/*    label="Family Avatar *"*/}
+                {/*    variant="outlined"*/}
 
-                    sx={{
-                        ".MuiOutlinedInput-root": {
-                            paddingTop: "1rem",
-                            flexDirection: "column"
-                        },
-                        img: {
-                            paddingRight: "1rem"
-                        }
-                    }}
-                    InputProps={{
-                        startAdornment: <img src="https://via.placeholder.com/180x150/200"/>
-                    }}
-                    placeholder="Enter image caption..."
-                />
-                <Button type={"submit"} disabled={false} sx={{mt: 1 /* margin top */}}>
-                    Sign up family!
-                </Button>
+                {/*    sx={{*/}
+                {/*        ".MuiOutlinedInput-root": {*/}
+                {/*            paddingTop: "1rem",*/}
+                {/*            flexDirection: "column"*/}
+                {/*        },*/}
+                {/*        img: {*/}
+                {/*            paddingRight: "1rem"*/}
+                {/*        }*/}
+                {/*    }}*/}
+                {/*    InputProps={{*/}
+                {/*        startAdornment: <img src="https://via.placeholder.com/180x150/200"/>*/}
+                {/*    }}*/}
+                {/*    placeholder="Enter image caption..."*/}
+                {/*/>*/}
+                {/*<Button type={"submit"} disabled={false} sx={{mt: 1 /* margin top *!/}>*/}
+                {/*    /!*<Link href="/home" sx={{textDecoration: 'none'}}>Sign up user!</Link>*!/*/}
+                {/*    sign up user*/}
+                {/*</Button>*/}
+                <button type={'submit'} onClick={get}>lestgo</button>
                 <Typography
                     endDecorator={<Link href="/sign-in">Sign in</Link>}
                     fontSize="sm"

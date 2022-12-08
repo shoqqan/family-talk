@@ -2,5 +2,13 @@
 .content{
     color: #FEFEFE;
     margin-left: 10%;
+    display: flex;
+    column-gap: 15%;
+    margin-top: 20px;
+}
+
+.posts{
+    height:500px;
+    overflow-y: auto;
 }
 

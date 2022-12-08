@@ -6,25 +6,33 @@ import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
 import {store} from "./redux/store";
 import {LoginPage} from "./components/LoginPage/LoginPage";
+import SignUpFamily from "./components/SignUpFamily/SignUpFamily";
+import {BrowserRouter, Route, Routes, Navigate} from "react-router-dom";
+import {News} from "./components/News/News";
+import {Profile} from "./components/Profile/Profile";
+import Settings from "./components/Settings/Settings";
 import SignUpUser from "./components/SignUpUser/SignUpUser";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
-    <React.StrictMode>
-        <Provider store={store}>
-            <App/>
-            {/*<BrowserRouter>*/}
-            {/*    <Routes>*/}
-            {/*        <Route path={'/sign-in'} element={<LoginPage/>}></Route>*/}
-            {/*        <Route path={'/sign-up-family'} element={<SignUpUser/>}></Route>*/}
-
-            {/*    </Routes>*/}
-            {/*</BrowserRouter>*/}
-        </Provider>
-    </React.StrictMode>
+    <Provider store={store}>
+        <BrowserRouter>
+            <Routes>
+                <Route path={'sign-in'} element={<LoginPage/>}/>
+                <Route path={'sign-up-family'} element={<SignUpFamily/>}/>
+                <Route path={'sign-up-user'} element={<SignUpUser/>}/>
+                <Route path={'home'} element={<App/>}>
+                    <Route path={'news'} element={<News/>}/>
+                    <Route path={'profile'} element={<Profile/>}/>
+                    <Route path={'settings'} element={<Settings/>}/>
+                    <Route path={''} element={<Navigate to={'news'}/>}/>
+                </Route>
+                <Route path={'/'} element={<Navigate to={'home'}/>}/>
+            </Routes>
+        </BrowserRouter>
+    </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

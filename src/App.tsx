@@ -7,27 +7,22 @@ import {Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/Profile/Profile";
 import {News} from "./components/News/News";
 import {LoginPage} from "./components/LoginPage/LoginPage";
-
+import Settings from "./components/Settings/Settings";
+import {Outlet} from "react-router-dom"
 function App() {
     const logo = 'https://upload.wikimedia.org/wikipedia/commons/4/4e/VK_Compact_Logo.svg'
     return (
-        <BrowserRouter>
-            {/*<Routes>*/}
-            {/*    <Route path={'/login'} element={<LoginPage/>}></Route>*/}
-            {/*</Routes>*/}
-            <div className="App">
+        <>
 
+            <div className="App">
 
                 <Header imgSrc={logo}/>
                 <Navbar/>
                 <div className='App-content'>
-                    <Routes>
-                        <Route path={'/news'} element={<News/>}/>
-                        <Route path={'/profile'} element={<Profile/>}></Route>
-                    </Routes>
+                    <Outlet/>
                 </div>
             </div>
-        </BrowserRouter>
+        </>
     );
 }
 

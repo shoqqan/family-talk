@@ -1,4 +1,5 @@
 import {v1} from "uuid";
+import {MyAvatar} from "./profileReducer";
 
 const user1 = v1()
 const user2 = v1()
@@ -7,12 +8,13 @@ type PostType = {
     postText: string,
     image: string
 }
-type UserType = {
+export type AuthorType = {
     id: string,
+    name:string
     avatar: string
 }
 type AllUsersType = {
-    users: UserType[]
+    users: AuthorType
 }
 type AllPostsType = {
     posts: PostTypeNews[]
@@ -30,31 +32,25 @@ type AddDislikeType = {
     id: string
 }
 export type PostTypeNews = {
-    name:string
     postId: string,
-    avatar: string,
     postText: string,
-    likes: number,
-    dislikes: number
+    image: string
+    author: AuthorType
 }
 const initialState: AllPostsType = {
     posts:
         [
             {
-                name: 'Shoqan',
                 postId: v1(),
                 postText: 'yoouyu',
-                avatar: 'https://cdn.discordapp.com/attachments/396667158270312450/1029538761584943184/GorDL0N36dM.jpg',
-                likes: 10,
-                dislikes: 1
+                image: 'https://sun1.dataix-kz-akkol.userapi.com/impg/nV7CFLBXUqWFglPg7ABdA9R1Q82SYG14pTJIdA/Hpb46xlSWE8.jpg?size=1280x960&quality=96&sign=0925b4d99c714f383b200aac208dc862&type=album',
+                author:{id:v1(),name:'Shoqan',avatar:MyAvatar}
             },
             {
-                name: 'Abzal',
                 postId: v1(),
                 postText: 'lol',
-                avatar: 'https://cdn.discordapp.com/attachments/396667158270312450/1029538761584943184/GorDL0N36dM.jpg',
-                likes: 10,
-                dislikes: 1
+                image:'',
+                author:{id:v1(),name:'Shoqan',avatar:MyAvatar}
             },
         ],
 }
