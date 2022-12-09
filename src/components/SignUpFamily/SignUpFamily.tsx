@@ -1,9 +1,12 @@
-import React, {ChangeEvent, useState} from 'react';
+import React from 'react';
 import {Button, Link, TextField} from "@mui/material";
 import {Sheet} from "@mui/joy";
 import Typography from "@mui/joy/Typography";
 import {useFormik} from "formik";
 import axios from "axios";
+import {useDispatch} from "react-redux";
+import {setFamilySpace} from "../../redux/reducers/profileReducer";
+import {useNavigate} from "react-router-dom";
 
 const validate = (values: any) => {
     const errors: any = {};
@@ -17,6 +20,8 @@ const validate = (values: any) => {
     return errors;
 };
 const SignUpFamily = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
             familyName: '',
@@ -28,15 +33,15 @@ const SignUpFamily = () => {
             description: '',
             familyImage: ''
         }, validate,
-        onSubmit: values => {
-            // alert(JSON.stringify(values, null, 2));
+        onSubmit: ({login, familyImage, familyName, password}) => {
             axios.post('https://family-talk.up.railway.app/family-space/create', {
-                login: 'shjoq',
-                title: values.familyName,
-                password: '123',
-                picture: 'pic'
+                login,
+                title: familyName,
+                password,
+                picture: familyImage
             }).then((res) => {
-                console.log(res.data);
+                dispatch(setFamilySpace(res.data))
+                navigate('/sign-up-user')
             })
         },
     });
@@ -76,16 +81,16 @@ const SignUpFamily = () => {
                 />
 
                 <TextField
-                    value={formik.values.description}
+                    value={formik.values.login}
                     onChange={formik.handleChange}
                     // html input attribute
-                    name="familyName"
+                    name="login"
                     type="text"
-                    placeholder="*f.e 'Family the majority part of our life'"
+                    placeholder="login"
                     // pass down to FormLabel as children
-                    label="Description"
-                    error={formik.touched.description && Boolean(formik.errors.description)}
-                    helperText={formik.touched.description && formik.errors.description}
+                    label="Login"
+                    error={formik.touched.login && Boolean(formik.errors.login)}
+                    helperText={formik.touched.login && formik.errors.login}
                 />
                 {/*<TextField*/}
                 {/*    // html input attribute*/}
@@ -99,27 +104,27 @@ const SignUpFamily = () => {
                 {/*    error={formik.touched.email && Boolean(formik.errors.email)}*/}
                 {/*    helperText={formik.touched.email && formik.errors.email}*/}
                 {/*/>*/}
-                {/*<TextField*/}
-                {/*    value={formik.values.password}*/}
-                {/*    onChange={formik.handleChange}*/}
-                {/*    name="password"*/}
-                {/*    type="password"*/}
-                {/*    placeholder="password"*/}
-                {/*    label="Password"*/}
-                {/*    error={formik.touched.password && Boolean(formik.errors.password)}*/}
-                {/*    helperText={formik.touched.password && formik.errors.password}*/}
-                {/*/>*/}
-                {/*<TextField*/}
-                {/*    value={formik.values.secondPassword}*/}
-                {/*    onChange={formik.handleChange}*/}
-                {/*    variant={'outlined'}*/}
-                {/*    name="secondPassword"*/}
-                {/*    type="password"*/}
-                {/*    placeholder="password"*/}
-                {/*    label="Enter your password again"*/}
-                {/*    error={formik.touched.secondPassword && Boolean(formik.errors.secondPassword)}*/}
-                {/*    helperText={formik.touched.secondPassword && formik.errors.secondPassword}*/}
-                {/*/>*/}
+                <TextField
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    name="password"
+                    type="password"
+                    placeholder="password"
+                    label="Password"
+                    error={formik.touched.password && Boolean(formik.errors.password)}
+                    helperText={formik.touched.password && formik.errors.password}
+                />
+                <TextField
+                    value={formik.values.secondPassword}
+                    onChange={formik.handleChange}
+                    variant={'outlined'}
+                    name="secondPassword"
+                    type="password"
+                    placeholder="password"
+                    label="Enter your password again"
+                    error={formik.touched.secondPassword && Boolean(formik.errors.secondPassword)}
+                    helperText={formik.touched.secondPassword && formik.errors.secondPassword}
+                />
 
                 <TextField
                     id="input-with-icon-textfield"

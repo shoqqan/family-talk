@@ -1,10 +1,14 @@
-import React, {ChangeEvent, useState} from 'react';
-import {Button, Link, TextField} from "@mui/material";
+import React from 'react';
+import {Link, TextField} from "@mui/material";
 import {Sheet} from "@mui/joy";
 import Typography from "@mui/joy/Typography";
 import {useFormik} from "formik";
 import axios from "axios";
-import {MyAvatar} from "../../redux/reducers/profileReducer";
+import {MyAvatar, setLogged} from "../../redux/reducers/profileReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../../redux/store";
+import {redirect, useNavigate} from "react-router-dom";
+
 export const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibG9naW4iOiJrc2RhZGEiLCJpYXQiOjE2NzA1MzQ3NzksImV4cCI6MTY3MDYyMTE3OX0.nnj1Hm9S3yB-JPMDIVO4lhSGE-fwPX4Z4RdKV6qTeG0"
 const validate = (values: any) => {
     const errors: any = {};
@@ -40,6 +44,9 @@ const validate = (values: any) => {
     return errors;
 };
 export const SignUpUser = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const familySpaceId = useSelector<AppStateType, number>(state => state.profilePage.familySpace.id)
     const formik = useFormik({
         initialValues: {
             name: '',
@@ -63,16 +70,26 @@ export const SignUpUser = () => {
 
     });
     const get = () =>{
-        axios.post('https://family-talk.up.railway.app/auth/registration', {
-            login:'ksdada',
-            password:'12314',
-            name:'Shoqan',
-            picture:MyAvatar,
-            family_space_id:1
-        }).then((res) => {
-            console.log(res.data);
-        })
+        if (familySpaceId) {
+            axios.post('https://family-talk.up.railway.app/auth/registration', {
+                login:formik.values.login,
+                password:formik.values.password,
+                name:formik.values.name,
+                family_space_id:familySpaceId
+            }).then((res) => {
+                dispatch(setLogged(true))
+                localStorage.setItem('token', res.data.token)
+                navigate('home')
+            })
+        } else {
+            redirect('home')
+        }
     }
+
+    if (!familySpaceId) {
+        // return <Navigate to={'/sign-up-family'}/>
+    }
+
     return (
         <form onSubmit={formik.handleSubmit}>
             <Sheet variant="outlined" sx={{
