@@ -1,21 +1,30 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {Sheet} from "@mui/joy";
 import Typography from "@mui/joy/Typography";
 import {Button, FormControlLabel, Link, Radio, RadioGroup, TextField} from "@mui/material";
 import {useFormik} from "formik";
 
 const Settings = () => {
+    const [lang,setLang] = useState('english')
+    const [theme,setTheme] = useState('dark')
     const formik = useFormik({
         initialValues: {
-            language: ""
+            language: lang,
+            theme
         },
         onSubmit: values => {
             alert(JSON.stringify(values, null, 2));
         },
     });
-    const handleRadioButtons = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleRadioLanguageButtons = (e: ChangeEvent<HTMLInputElement>) => {
+        setLang(e.currentTarget.value)
         formik.values.language = e.currentTarget.value
-        console.log(formik.values.language)
+
+    }
+    const handleRadioThemeButtons = (e: ChangeEvent<HTMLInputElement>) => {
+        setTheme(e.currentTarget.value)
+        formik.values.theme = e.currentTarget.value
+
     }
     return (
         <form onSubmit={formik.handleSubmit}>
@@ -42,49 +51,23 @@ const Settings = () => {
                     aria-labelledby="demo-controlled-radio-buttons-group"
                     name={'language'}
                     value={formik.values.language}
-                    onChange={e => handleRadioButtons(e)}>
-                    <FormControlLabel checked={false} value={'kazakh'} control={<Radio name={"language"}/>} label="Қазақша"/>
-                    <FormControlLabel checked={true} value={'english'} control={<Radio/>} label="English"/>
-                    <FormControlLabel checked={false}  value={'russian'}control={<Radio/>} label="Русский"/>
+                    onChange={e => handleRadioLanguageButtons(e)}>
+                    <FormControlLabel checked={lang==='kazakh'} value={'kazakh'} control={<Radio name={'language'} onClick={()=>{setLang('kazakh')}}/>} label="Қазақша"/>
+                    <FormControlLabel checked={lang==='english'} value={'english'} control={<Radio name={'language'} onClick={()=>{setLang('english')}}/>} label="English"/>
+                    <FormControlLabel checked={lang==='russian'}  value={'russian'}control={<Radio name={'language'} onClick={()=>{setLang('russian')}} />} label="Русский"/>
                 </RadioGroup>
 
                 <Typography level="body2" color={"neutral"}>Theme</Typography>
                 <RadioGroup
                     aria-labelledby="demo-controlled-radio-buttons-group"
-                    name={'language'}
+                    name={'theme'}
                     value={formik.values.language}
-                    onChange={e => handleRadioButtons(e)}>
-                    <FormControlLabel checked={false} value={'kazakh'} control={<Radio/>} label="White"/>
-                    <FormControlLabel checked={true} value={'english'} control={<Radio/>} label="Dark"/>
+                    onChange={e => handleRadioThemeButtons(e)}>
+                    <FormControlLabel checked={theme==='white'} value={'white'} control={<Radio name={'theme'} onClick={()=>{setTheme('white')}}/>} label="White"/>
+                    <FormControlLabel checked={theme==='dark'} value={'dark'} control={<Radio name={'theme'} onClick={()=>{setTheme('dark')}}/>} label="Dark"/>
                 </RadioGroup>
-                {/*<input*/}
-                {/*    type="radio"*/}
-                {/*    id="one"*/}
-                {/*    name="group"*/}
-                {/*    value="One"*/}
-                {/*    onChange={e => handleRadioButtons(e)}*/}
-                {/*    required*/}
-                {/*/>*/}
-                {/*<label htmlFor="one">One</label>*/}
-                {/*<br />*/}
+                <Button type={'submit'}>Apply</Button>
 
-                {/*<input*/}
-                {/*    type="radio"*/}
-                {/*    id="two"*/}
-                {/*    name="group"*/}
-                {/*    value="Two"*/}
-                {/*    onChange={e => handleRadioButtons(e)}*/}
-                {/*/>*/}
-                {/*<label htmlFor="two">Two</label>*/}
-
-                {/*<Typography*/}
-                {/*    endDecorator={<Link href="/sign-in">Sign in</Link>}*/}
-                {/*    fontSize="sm"*/}
-                {/*    sx={{alignSelf: 'center'}}*/}
-                {/*>*/}
-                {/*    Already have an account?*/}
-
-                {/*</Typography>*/}
 
             </Sheet>
         </form>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, TextField} from "@mui/material";
+import {Button, Link, TextField} from "@mui/material";
 import {Sheet} from "@mui/joy";
 import Typography from "@mui/joy/Typography";
 import {useFormik} from "formik";
@@ -8,6 +8,7 @@ import {MyAvatar, setLogged} from "../../redux/reducers/profileReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
 import {redirect, useNavigate} from "react-router-dom";
+import ButtonGroupContext from "@mui/material/ButtonGroup/ButtonGroupContext";
 
 export const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibG9naW4iOiJrc2RhZGEiLCJpYXQiOjE2NzA1MzQ3NzksImV4cCI6MTY3MDYyMTE3OX0.nnj1Hm9S3yB-JPMDIVO4lhSGE-fwPX4Z4RdKV6qTeG0"
 const validate = (values: any) => {
@@ -192,7 +193,8 @@ export const SignUpUser = () => {
                 {/*    /!*<Link href="/home" sx={{textDecoration: 'none'}}>Sign up user!</Link>*!/*/}
                 {/*    sign up user*/}
                 {/*</Button>*/}
-                <button type={'submit'} onClick={get}>lestgo</button>
+                {/*<button type={'submit'} onClick={get}>lestgo</button>*/}
+                <Button type={'submit'} onClick={get}>Sign up user!</Button>
                 <Typography
                     endDecorator={<Link href="/sign-in">Sign in</Link>}
                     fontSize="sm"

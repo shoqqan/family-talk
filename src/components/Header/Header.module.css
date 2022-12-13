@@ -1,6 +1,13 @@
 .header {
     grid-area: h;
+    display: flex;
     background-color: #2F3136;
+
+}
+
+.logo{
+    display: flex;
+    flex-basis: 96%;
 }
 
 .img {

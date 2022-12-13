@@ -16,7 +16,7 @@ function App() {
         <>
             <div className="App">
 
-                <Header imgSrc={logo}/>
+                <Header/>
                 <Navbar/>
                 <div className='App-content'>
                     <Outlet/>
