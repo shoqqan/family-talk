@@ -9,7 +9,6 @@ export type OnChangePostText = {
     postText: string
 }
 
-
 export type UserType = {
     login: string,
     password: string,
@@ -60,7 +59,7 @@ export const getPostsFromBack = (posts: PostType[]): GetPostsType => {
         posts
     }
 }
-export const setFamilySpace = (familySpace: any) => ({
+export const setFamilySpace = (familySpace: any) => ({ //TODO: fix any
     type: 'SET-FAMILY-SPACE' as const,
     familySpace
 })
@@ -69,8 +68,9 @@ export const setLogged = (isLogged: boolean) => ({
     type: 'SET-IS-LOGGED' as const,
     isLogged
 })
-const MyId = v1()
+
 export const MyAvatar = 'https://sun9-25.userapi.com/impg/cpvKKvfaw8jXHM7It9oO_QW4uH1uosHO87MaIw/SNEEKY7JZpk.jpg?size=1440x1800&quality=95&sign=4eca4098f257f21e1691b49981949322&type=album'
+
 const initialState: ProfilePageType = {
     familySpace: {},
     isLogged: false,
@@ -127,6 +127,7 @@ const initialState: ProfilePageType = {
     ],
     newPostText: ''
 }
+
 export const profileReducer = (state: ProfilePageType = initialState, action: ProfileActionType) => {
     switch (action.type) {
         case 'ADD-POST':

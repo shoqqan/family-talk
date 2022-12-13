@@ -4,9 +4,11 @@ import {Sheet} from "@mui/joy";
 import Typography from "@mui/joy/Typography";
 import {useFormik} from "formik";
 import axios from "axios";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setFamilySpace} from "../../redux/reducers/profileReducer";
 import {useNavigate} from "react-router-dom";
+import {AppStateType} from "../../redux/store";
+import {replaceWithReload} from "../../helpers/replaceWithReload";
 
 const validate = (values: any) => {
     const errors: any = {};
@@ -20,14 +22,18 @@ const validate = (values: any) => {
     return errors;
 };
 const SignUpFamily = () => {
+    const isLogged = useSelector<AppStateType, boolean>(state =>  state.profilePage.isLogged)
+
+    if (isLogged) {
+        replaceWithReload('home')
+    }
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
             familyName: '',
             login: '',
-
-            // email: '',
             password: '',
             secondPassword: '',
             description: '',
@@ -45,6 +51,8 @@ const SignUpFamily = () => {
             })
         },
     });
+
+
 
     return (
         <form onSubmit={formik.handleSubmit}>
@@ -70,11 +78,9 @@ const SignUpFamily = () => {
                 <TextField
                     value={formik.values.familyName}
                     onChange={formik.handleChange}
-                    // html input attribute
                     name="familyName"
                     type="text"
                     placeholder="f.e 'Tatayev's name"
-                    // pass down to FormLabel as children
                     label="Family name"
                     error={formik.touched.familyName && Boolean(formik.errors.familyName)}
                     helperText={formik.touched.familyName && formik.errors.familyName}
@@ -83,27 +89,13 @@ const SignUpFamily = () => {
                 <TextField
                     value={formik.values.login}
                     onChange={formik.handleChange}
-                    // html input attribute
                     name="login"
                     type="text"
                     placeholder="login"
-                    // pass down to FormLabel as children
                     label="Login"
                     error={formik.touched.login && Boolean(formik.errors.login)}
                     helperText={formik.touched.login && formik.errors.login}
                 />
-                {/*<TextField*/}
-                {/*    // html input attribute*/}
-                {/*    value={formik.values.email}*/}
-                {/*    onChange={formik.handleChange}*/}
-                {/*    name="email"*/}
-                {/*    type="email"*/}
-                {/*    placeholder="johndoe@email.com"*/}
-                {/*    // pass down to FormLabel as children*/}
-                {/*    label="Email"*/}
-                {/*    error={formik.touched.email && Boolean(formik.errors.email)}*/}
-                {/*    helperText={formik.touched.email && formik.errors.email}*/}
-                {/*/>*/}
                 <TextField
                     value={formik.values.password}
                     onChange={formik.handleChange}
@@ -146,10 +138,8 @@ const SignUpFamily = () => {
                     placeholder="Enter image caption..."
                 />
                 <Button type={"submit"} disabled={false} sx={{mt: 1 /* margin top */}}>
-                    {/*<Link href="/sign-up-user" sx={{textDecoration: 'none'}}>Sign up family!</Link>*/}
                     Sign
                 </Button>
-                {/*<Link href="/sign-up-user">Sign up family!</Link>*/}
                 <Typography
                     endDecorator={<Link href="/sign-in">Sign in</Link>}
                     fontSize="sm"

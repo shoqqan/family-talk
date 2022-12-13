@@ -7,8 +7,7 @@ import axios from "axios";
 import {MyAvatar, setLogged} from "../../redux/reducers/profileReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
-import {redirect, useNavigate} from "react-router-dom";
-import ButtonGroupContext from "@mui/material/ButtonGroup/ButtonGroupContext";
+import {replaceWithReload} from "../../helpers/replaceWithReload";
 
 export const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibG9naW4iOiJrc2RhZGEiLCJpYXQiOjE2NzA1MzQ3NzksImV4cCI6MTY3MDYyMTE3OX0.nnj1Hm9S3yB-JPMDIVO4lhSGE-fwPX4Z4RdKV6qTeG0"
 const validate = (values: any) => {
@@ -46,8 +45,13 @@ const validate = (values: any) => {
 };
 export const SignUpUser = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const familySpaceId = useSelector<AppStateType, number>(state => state.profilePage.familySpace.id)
+    const familySpaceId = useSelector<AppStateType, number>(state => state.profilePage.familySpace.id);
+
+    if (!familySpaceId) {
+        replaceWithReload('sign-up-family')
+    }
+
+
     const formik = useFormik({
         initialValues: {
             name: '',
@@ -55,40 +59,33 @@ export const SignUpUser = () => {
             password: '',
             secondPassword: '',
 
-        }, validate,
+        },
+        validate,
         onSubmit: ({name, login, password}) => {
             alert(JSON.stringify(name, null, 2));
             axios.post('https://family-talk.up.railway.app/auth/registration', {
                 login,
                 password,
                 name,
-                picture:MyAvatar,
-                family_space_id:1
+                picture: MyAvatar,
+                family_space_id: familySpaceId
             }).then((res) => {
-                console.log(res.data);
+                dispatch(setLogged(true))
             })
         },
 
     });
-    const get = () =>{
-        if (familySpaceId) {
-            axios.post('https://family-talk.up.railway.app/auth/registration', {
-                login:formik.values.login,
-                password:formik.values.password,
-                name:formik.values.name,
-                family_space_id:familySpaceId
-            }).then((res) => {
-                dispatch(setLogged(true))
-                localStorage.setItem('token', res.data.token)
-                navigate('home')
-            })
-        } else {
-            redirect('home')
-        }
-    }
-
-    if (!familySpaceId) {
-        // return <Navigate to={'/sign-up-family'}/>
+    const get = () => {
+        axios.post('https://family-talk.up.railway.app/auth/registration', {
+            login: formik.values.login,
+            password: formik.values.password,
+            name: formik.values.name,
+            family_space_id: familySpaceId
+        }).then((res) => {
+            dispatch(setLogged(true))
+            replaceWithReload('home');
+            localStorage.setItem('token', res.data.token)
+        })
     }
 
     return (
