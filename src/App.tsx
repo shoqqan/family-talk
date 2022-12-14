@@ -9,35 +9,33 @@ import {News} from "./components/News/News";
 import {Profile} from "./components/Profile/Profile";
 import Settings from "./components/Settings/Settings";
 import {AuthRedirect} from "./hoc/AuthRedirect";
+import {ROUTES} from "./helpers/roates";
 
-export enum ROUTES  {
-    SIGN_IN = 'sign-in'
-}
-//create enums or constants for routes; // => helpers/routes.ts
-//cleaning everywhere no logs, no hardcode
+
+//create enums or constants for routes; // => helpers/routes.ts DONE
+//cleaning everywhere no logs, no hardcode DONE
 //get data of family and user from back
 //change header photo to icon of logout
 //
 function App() {
-    useEffect(() => {
-        //auth.me(); by token
-        //
-        //token
-        //
-    });
-
+    // useEffect(() => {
+    //     //auth.me(); by token
+    //     //
+    //     //token
+    //     //
+    // });
     return (
         <Routes>
             <Route path={ROUTES.SIGN_IN} element={<LoginPage/>}/>
-            <Route path={'sign-up-family'} element={<SignUpFamily/>}/>
-            <Route path={'sign-up-user'} element={<SignUpUser/>}/>
-            <Route path={'home'} element={<AuthRedirect><Home/></AuthRedirect>}>
-                <Route path={'news'} element={<News/>}/>
-                <Route path={'profile'} element={<Profile/>}/>
-                <Route path={'settings'} element={<Settings/>}/>
-                <Route path={''} element={<Navigate to={'news'}/>}/>
+            <Route path={ROUTES.SIGN_UP_FAMILY} element={<SignUpFamily/>}/>
+            <Route path={ROUTES.SIGN_UP_USER} element={<SignUpUser/>}/>
+            <Route path={ROUTES.HOME} element={<AuthRedirect><Home/></AuthRedirect>}>
+                <Route path={ROUTES.NEWS} element={<News/>}/>
+                <Route path={ROUTES.PROFILE} element={<Profile/>}/>
+                <Route path={ROUTES.SETTINGS} element={<Settings/>}/>
+                <Route path={''} element={<Navigate to={ROUTES.NEWS}/>}/>
             </Route>
-            <Route path={'/'} element={<Navigate to={'home'}/>}/>
+            <Route path={'/'} element={<Navigate to={ROUTES.HOME}/>}/>
         </Routes>
     );
 }

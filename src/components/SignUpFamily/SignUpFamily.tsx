@@ -9,6 +9,7 @@ import {setFamilySpace} from "../../redux/reducers/profileReducer";
 import {useNavigate} from "react-router-dom";
 import {AppStateType} from "../../redux/store";
 import {replaceWithReload} from "../../helpers/replaceWithReload";
+import {ROUTES} from "../../helpers/roates";
 
 const validate = (values: any) => {
     const errors: any = {};
@@ -23,9 +24,9 @@ const validate = (values: any) => {
 };
 const SignUpFamily = () => {
     const isLogged = useSelector<AppStateType, boolean>(state =>  state.profilePage.isLogged)
-
+    console.log('looll')
     if (isLogged) {
-        replaceWithReload('home')
+        replaceWithReload(ROUTES.HOME)
     }
 
     const dispatch = useDispatch();
@@ -40,7 +41,7 @@ const SignUpFamily = () => {
             familyImage: ''
         }, validate,
         onSubmit: ({login, familyImage, familyName, password}) => {
-            axios.post('https://family-talk.up.railway.app/family-space/create', {
+            axios.post('https://family-talk.up.railway.app/family-space', {
                 login,
                 title: familyName,
                 password,

@@ -3,8 +3,6 @@ import profilestyle from './Post.module.css'
 import {Avatar, Button, Container, IconButton, Paper, Stack} from "@mui/material";
 import ThumbUpOffAltOutlinedIcon from '@mui/icons-material/ThumbUpOffAltOutlined';
 import ChatRoundedIcon from '@mui/icons-material/ChatRounded';
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
 import {AuthorType} from "../../../../redux/reducers/newsReducer";
 
 type PropsType = {
@@ -18,10 +16,6 @@ type PropsType = {
 export const Post = React.memo((props: PropsType) => {
 
     return (
-        // <div className={profilestyle.parentContainer}>
-        //     <Avatar src={props.image} alt={''} sx={{width: 60, height: 60}}/>
-        //     {props.postText}
-        // </div>
         <Paper
             component="form"
             sx={{
@@ -40,12 +34,9 @@ export const Post = React.memo((props: PropsType) => {
                 <div className={profilestyle.postName}>{props.author.name}</div>
             </div>
             <div className={profilestyle.postText}>{props.postText}</div>
-            <Container><img style={{width:'500px'}} src={props.image}/></Container>
+            <Container><img style={{width: '500px'}} src={props.image}/></Container>
 
             <Stack spacing={2} direction="row">
-                {/*<IconButton color='default'>*/}
-                {/*    <ThumbUpOffAltOutlinedIcon/>*/}
-                {/*</IconButton>*/}
                 <IconButton>
                     <ThumbUpOffAltOutlinedIcon/>
                 </IconButton>
