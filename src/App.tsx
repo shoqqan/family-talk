@@ -10,6 +10,10 @@ import {Profile} from "./components/Profile/Profile";
 import Settings from "./components/Settings/Settings";
 import {AuthRedirect} from "./hoc/AuthRedirect";
 import {ROUTES} from "./helpers/roates";
+import SignUpFamilyMember from "./components/AddFamilyMember/AddFamilyMember";
+import axios from "axios";
+import {useDispatch} from "react-redux";
+import {authMeTC} from "./redux/reducers/profileReducer";
 
 
 //create enums or constants for routes; // => helpers/routes.ts DONE
@@ -18,17 +22,12 @@ import {ROUTES} from "./helpers/roates";
 //change header photo to icon of logout
 //
 function App() {
-    // useEffect(() => {
-    //     //auth.me(); by token
-    //     //
-    //     //token
-    //     //
-    // });
     return (
         <Routes>
             <Route path={ROUTES.SIGN_IN} element={<LoginPage/>}/>
             <Route path={ROUTES.SIGN_UP_FAMILY} element={<SignUpFamily/>}/>
             <Route path={ROUTES.SIGN_UP_USER} element={<SignUpUser/>}/>
+            <Route path={ROUTES.SIGN_UP_FAMILY_MEMBER} element={<SignUpFamilyMember/>}/>
             <Route path={ROUTES.HOME} element={<AuthRedirect><Home/></AuthRedirect>}>
                 <Route path={ROUTES.NEWS} element={<News/>}/>
                 <Route path={ROUTES.PROFILE} element={<Profile/>}/>

@@ -1,7 +1,5 @@
 import {
-    addPostActionCreator,
-    getPostsFromBack,
-    MyAvatar,
+    createPostTC, getFamilySpaceTC, getPostsTC,
     PostType,
     UserType
 } from "../../../redux/reducers/profileReducer";
@@ -13,30 +11,27 @@ import {ChangeEvent, useEffect, useState} from "react";
 import {Button, Divider, IconButton, InputBase, Paper, TextField} from "@mui/material";
 import FamilyCard from "../../FamilyCard/FamilyCard";
 import {v1} from "uuid";
-import axios from "axios";
-import {token} from "../../SignUpUser/SignUpUser";
 
 
 export const ProfilePosts = () => {
     const posts = useSelector<AppStateType, PostType[]>(state => state.profilePage.posts)
-    const dispatch = useDispatch()
+    const user = useSelector<AppStateType, UserType>(state => state.profilePage.user)
+
+    const dispatch = useDispatch<any>()
     const [text, setText] = useState('')
     const onAddPost = () => {
-        axios.post('https://family-talk.up.railway.app/posts', {
-            title: text,
-            picture: 'hah',
-        }, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then((res) => {
-            dispatch(addPostActionCreator(res.data))
-        })
+        dispatch(createPostTC(text,text))
 
     }
     const onPostChange = (text: ChangeEvent<HTMLTextAreaElement>) => {
         setText(text.currentTarget.value)
     }
+    useEffect(()=>{
+        dispatch(getPostsTC())
+        dispatch(getFamilySpaceTC())
+
+    },[])
+
     return (
         <div className={profilestyle.content}>
             <div>
@@ -62,9 +57,9 @@ export const ProfilePosts = () => {
                 </div>
                 <div className={profilestyle.posts}>
 
-                    {posts.map((post) => {
+                    {Array.isArray(posts)?posts.map((post) => {
                         return (<Post
-                            author={{id: v1(), name: "Shoqan", avatar: MyAvatar}}
+                            author={{id: v1(), name: user.name, avatar: user.picture}}
                             key={post.id}
                             id={post.id}
                             image={post.picture}
@@ -72,7 +67,7 @@ export const ProfilePosts = () => {
 
                         />)
 
-                    })}
+                    }):null}
                 </div>
             </div>
             <FamilyCard/>

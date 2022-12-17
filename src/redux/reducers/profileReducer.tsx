@@ -1,4 +1,8 @@
 import {v1} from "uuid";
+import {Dispatch} from "redux";
+import {authApi, familyApi, postsApi} from "../../API/api";
+import {replaceWithReload} from "../../helpers/replaceWithReload";
+import {ROUTES} from "../../helpers/roates";
 
 type AddPostActionType = {
     type: 'ADD-POST'
@@ -9,20 +13,34 @@ export type OnChangePostText = {
     postText: string
 }
 
+export type SetPostsActionType = {
+    type: 'SET-POSTS',
+    posts: PostType[]
+}
 export type UserType = {
     login: string,
     password: string,
     name: string,
     picture: string,
     family_space_id: number
+    posts: PostType[]
 }
 
 type GetPostsType = {
     type: 'GET-POSTS-FROM-BACK',
     posts: PostType[]
 }
-
-export type PostType = {
+export type FamilySpaceType = {
+    createdAt: string
+    id: number,
+    login: string,
+    members: UserType[]
+    password: string,
+    picture: string
+    title: string,
+    updatedAt: string
+}
+export type  PostType = {
     id: string,
     title: string,
     picture: string,
@@ -30,10 +48,15 @@ export type PostType = {
     createdAt: string
 
 }
+export type AuthorType = {
+    id: string,
+    name:string
+    avatar: string
+}
 type ProfilePageType = {
     familySpace: any
     isLogged: boolean
-    user: any
+    user: UserType
     posts: PostType[]
     newPostText: string
 
@@ -42,10 +65,10 @@ export type ProfileActionType =
     AddPostActionType
     | OnChangePostText
     | GetPostsType
-    | ReturnType<typeof setFamilySpace>
+    | ReturnType<typeof setFamilySpaceActionCreator>
     | ReturnType<typeof setLogged>
     | ReturnType<typeof setUser>
-
+    | SetPostsActionType
 
 export const addPostActionCreator = (post: PostType): AddPostActionType => {
     return {
@@ -54,13 +77,13 @@ export const addPostActionCreator = (post: PostType): AddPostActionType => {
     }
 }
 
-export const getPostsFromBack = (posts: PostType[]): GetPostsType => {
+export const getPostsFromBackActionCreator = (posts: PostType[]): GetPostsType => {
     return {
         type: 'GET-POSTS-FROM-BACK',
         posts
     }
 }
-export const setFamilySpace = (familySpace: any) => ({ //TODO: fix any
+export const setFamilySpaceActionCreator = (familySpace: FamilySpaceType) => ({ //TODO: fix any
     type: 'SET-FAMILY-SPACE' as const,
     familySpace
 })
@@ -76,85 +99,101 @@ export const setLogged = (isLogged: boolean) => ({
     isLogged
 })
 
-
+export const setPosts = (posts: PostType[]) => (
+    {
+        type: 'SET-POSTS',
+        posts
+    }
+)
 export const MyAvatar = 'https://sun9-25.userapi.com/impg/cpvKKvfaw8jXHM7It9oO_QW4uH1uosHO87MaIw/SNEEKY7JZpk.jpg?size=1440x1800&quality=95&sign=4eca4098f257f21e1691b49981949322&type=album'
 
 const initialState: ProfilePageType = {
     familySpace: {},
     isLogged: false,
     user: {
-        photo: MyAvatar,
-        wallPaper: '\n' +
-            'https://img.freepik.com/free-photo/cool-geometric-triangular-figure-in-a-neon-laser-light-great-for-backgrounds-and-wallpapers_181624-9331.jpg?w=1380&t=st=1670544089~exp=1670544689~hmac=b4cbb38ecd954f50da88ea12f9612722d24c6df5ec471efc1820c0f111bb71dc',
+        name:'test',
+        picture:'https://lowcars.net/wp-content/uploads/2017/02/userpic.png',
+        posts:[],
+        password:'test',
+        login:'test',
+        family_space_id:1
     },
-    posts: [
-        {
-            id: v1(),
-            title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n' +
-                '\n' +
-                'Why do we use it?\n' +
-                'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\n' +
-                '\n    ',
-            picture: 'https://sun1.dataix-kz-akkol.userapi.com/impg/nV7CFLBXUqWFglPg7ABdA9R1Q82SYG14pTJIdA/Hpb46xlSWE8.jpg?size=1280x960&quality=96&sign=0925b4d99c714f383b200aac208dc862&type=album',
-            userId: 2,
-            createdAt: ''
-        },
-        {
-            id: v1(),
-            title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n' +
-                '\n' +
-                'Why do we use it?\n' +
-                'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\n' +
-                '\n    ',
-            picture: 'https://sun1.dataix-kz-akkol.userapi.com/impg/nV7CFLBXUqWFglPg7ABdA9R1Q82SYG14pTJIdA/Hpb46xlSWE8.jpg?size=1280x960&quality=96&sign=0925b4d99c714f383b200aac208dc862&type=album',
-            userId: 2,
-            createdAt: ''
-        },
-        {
-            id: v1(),
-            title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n' +
-                '\n' +
-                'Why do we use it?\n' +
-                'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\n' +
-                '\n    ',
-            picture: 'https://sun1.dataix-kz-akkol.userapi.com/impg/nV7CFLBXUqWFglPg7ABdA9R1Q82SYG14pTJIdA/Hpb46xlSWE8.jpg?size=1280x960&quality=96&sign=0925b4d99c714f383b200aac208dc862&type=album',
-            userId: 2,
-            createdAt: ''
-        },
-        {
-            id: v1(),
-            title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n' +
-                '\n' +
-                'Why do we use it?\n' +
-                'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\n' +
-                '\n    ',
-            picture: 'https://sun1.dataix-kz-akkol.userapi.com/impg/nV7CFLBXUqWFglPg7ABdA9R1Q82SYG14pTJIdA/Hpb46xlSWE8.jpg?size=1280x960&quality=96&sign=0925b4d99c714f383b200aac208dc862&type=album',
-            userId: 2,
-            createdAt: ''
-        },
-    ],
+    posts: [],
     newPostText: ''
 }
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ProfileActionType) => {
     switch (action.type) {
         case 'ADD-POST':
-            return {...state, posts: [action.post, ...state.posts]}
+            return {
+                ...state,
+                posts: [action.post, ...state.posts],
+                user: {...state.user, posts: [action.post, ...state.posts]}
+            }
         case 'ON-CHANGE-POST-TEXT':
             state.newPostText = action.postText
             return {...state}
         case 'GET-POSTS-FROM-BACK':
             return state;
-        // return {...state, posts: action.posts}
         case 'SET-FAMILY-SPACE':
+            console.log(action.familySpace)
             return {...state, familySpace: action.familySpace}
         case 'SET-IS-LOGGED':
             return {...state, isLogged: action.isLogged}
         case 'SET-USER':
             console.log(action.user)
             return {...state, user: action.user}
-
+        case 'SET-POSTS':
+            return {...state, posts: action.posts, user: {...state.user, posts: action.posts}}
         default:
             return state
     }
+}
+
+export const authMeTC = () => (dispatch: Dispatch) => {
+    authApi.me().then((res) => {
+        dispatch(setLogged(true))
+        dispatch(setUser(res))
+    })
+        .catch(() => {
+            replaceWithReload(ROUTES.SIGN_IN)
+        })
+}
+
+export const onChangeStatusTC = (dispatch: Dispatch) => {
+    authApi.me().then((res) => {
+        console.log(res)
+    })
+}
+// export const getFamilySpace = ()=>{
+//     familyApi.get().then((res)=>{
+//         console.log(res)
+//     })
+// }
+export const getPostsTC = () => (dispatch: Dispatch) => {
+    postsApi.get().then((res) => {
+        // console.log(res.posts)
+        // console.log(res.data)
+        dispatch(setPosts(res.posts.reverse()))
+    })
+        .catch(() => {
+            replaceWithReload(ROUTES.SIGN_IN)
+        })
+}
+
+export const createPostTC = (title: string, content: string) => (dispatch: Dispatch) => {
+    postsApi.post(title, content)
+        .then((res) => {
+            dispatch(addPostActionCreator(res))
+        })
+        .catch(() => {
+            replaceWithReload(ROUTES.SIGN_IN)
+        })
+}
+
+export const getFamilySpaceTC = () =>(dispatch:Dispatch) =>{
+    familyApi.get().then((res)=>{
+        console.log(res.data)
+        dispatch(setFamilySpaceActionCreator(res.data))
+    })
 }

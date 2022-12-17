@@ -5,5 +5,6 @@ export enum ROUTES  {
     HOME = 'home',
     NEWS = 'news',
     PROFILE = 'profile',
-    SETTINGS = 'settings'
+    SETTINGS = 'settings',
+    SIGN_UP_FAMILY_MEMBER = 'sign-up-family-member'
 }

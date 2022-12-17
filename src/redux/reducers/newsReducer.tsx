@@ -1,14 +1,15 @@
 import {v1} from "uuid";
 import {MyAvatar} from "./profileReducer";
-
-const user1 = v1()
-const user2 = v1()
+import {Dispatch} from "redux";
+import {newsApi} from "../../API/api";
 type PostType = {
-    postId: string,
-    postText: string,
-    image: string
+    id: number,
+    title: string,
+    content: string,
+    picture: string,
+    user_id: number
 }
-export type AuthorType = {
+type AuthorType = {
     id: string,
     name:string
     avatar: string
@@ -37,6 +38,12 @@ export type PostTypeNews = {
     image: string
     author: AuthorType
 }
+type getNewsActionType = {
+    type:'GET-NEWS'
+    news: PostTypeNews[]
+
+}
+// const ActionType =
 const initialState: AllPostsType = {
     posts:
         [
@@ -82,5 +89,12 @@ const initialState: AllPostsType = {
 
 export const newsReducer = (state: AllPostsType = initialState,action:any) => {
     return state
+}
+
+
+export const getNewsTC = () =>{
+    newsApi.get().then((res)=>{
+
+    })
 }
 

@@ -1,15 +1,14 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Button, Link, TextField} from "@mui/material";
 import {Sheet} from "@mui/joy";
 import Typography from "@mui/joy/Typography";
 import {useFormik} from "formik";
 import axios from "axios";
-import {MyAvatar, setLogged} from "../../redux/reducers/profileReducer";
+import {authMeTC, MyAvatar, setLogged} from "../../redux/reducers/profileReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
 import {replaceWithReload} from "../../helpers/replaceWithReload";
 import {ROUTES} from "../../helpers/roates";
-
 const validate = (values: any) => {
     const errors: any = {};
     if (!values.name) {
@@ -43,14 +42,15 @@ const validate = (values: any) => {
     }
     return errors;
 };
-export const SignUpUser = () => {
-    const dispatch = useDispatch();
-    const familySpaceId = useSelector<AppStateType, number>(state => state.profilePage.familySpace.id);
-
-    if (!familySpaceId) {
-        replaceWithReload(ROUTES.SIGN_UP_FAMILY)
-    }
-
+export const SignUpFamilyMember = () => {
+    const dispatch = useDispatch<any>();
+    const familySpaceId = useSelector<AppStateType, number>(state => state.profilePage.user.family_space_id);
+    useEffect(()=>{
+        dispatch(authMeTC())
+    },[])
+    // if (!familySpaceId) {
+    //     replaceWithReload(ROUTES.SIGN_UP_FAMILY)
+    // }
 
     const formik = useFormik({
         initialValues: {
@@ -59,6 +59,7 @@ export const SignUpUser = () => {
             password: '',
             secondPassword: '',
             picture:''
+
         },
         validate,
         onSubmit: ({name, login, password,picture}) => {
@@ -78,8 +79,8 @@ export const SignUpUser = () => {
         axios.post('https://family-talk.up.railway.app/auth/registration', {
             login: formik.values.login,
             password: formik.values.password,
-            name: formik.values.name,
             picture: formik.values.picture,
+            name: formik.values.name,
             family_space_id: familySpaceId
         }).then(() => {
             replaceWithReload(ROUTES.SIGN_IN);
@@ -175,11 +176,10 @@ export const SignUpUser = () => {
                 />
                 <Button type={'submit'} onClick={get}>Sign up user!</Button>
                 <Typography
-                    endDecorator={<Link href="/sign-in">Sign in</Link>}
+                    endDecorator={<Button onClick={()=>{replaceWithReload(ROUTES.HOME)}}>Return to profile</Button>}
                     fontSize="sm"
-                    sx={{alignSelf: 'center'}}
-                >
-                    Already have an account?
+                    sx={{alignSelf: 'center'}}>
+
 
                 </Typography>
 
@@ -188,4 +188,4 @@ export const SignUpUser = () => {
     );
 };
 
-export default SignUpUser;
+export default SignUpFamilyMember;

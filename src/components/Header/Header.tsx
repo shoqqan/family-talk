@@ -5,6 +5,8 @@ import {Avatar, IconButton, Typography} from "@mui/material";
 import {MyAvatar, setLogged} from "../../redux/reducers/profileReducer";
 import {useDispatch} from "react-redux";
 import LogoutIcon from '@mui/icons-material/Logout';
+import {replaceWithReload} from "../../helpers/replaceWithReload";
+import {ROUTES} from "../../helpers/roates";
 
 
 export const Header = () => {
@@ -12,6 +14,8 @@ export const Header = () => {
     const dispatch = useDispatch();
     const logOut = () => {
         dispatch(setLogged(false))
+        replaceWithReload(ROUTES.SIGN_IN)
+        localStorage.clear()
     }
     return (
         <header className={style.header}>

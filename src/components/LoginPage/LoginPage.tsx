@@ -10,7 +10,7 @@ import {useNavigate} from "react-router-dom";
 import {replaceWithReload} from "../../helpers/replaceWithReload";
 import {Form, useFormik} from "formik";
 import axios from "axios";
-import {MyAvatar, setFamilySpace, setLogged, setUser} from "../../redux/reducers/profileReducer";
+import {MyAvatar, setFamilySpaceActionCreator, setLogged, setUser} from "../../redux/reducers/profileReducer";
 import {useDispatch} from "react-redux";
 
 export function LoginPage() {

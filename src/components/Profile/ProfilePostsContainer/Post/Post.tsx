@@ -3,7 +3,7 @@ import profilestyle from './Post.module.css'
 import {Avatar, Button, Container, IconButton, Paper, Stack} from "@mui/material";
 import ThumbUpOffAltOutlinedIcon from '@mui/icons-material/ThumbUpOffAltOutlined';
 import ChatRoundedIcon from '@mui/icons-material/ChatRounded';
-import {AuthorType} from "../../../../redux/reducers/newsReducer";
+import {AuthorType} from "../../../../redux/reducers/profileReducer";
 
 type PropsType = {
     id: string

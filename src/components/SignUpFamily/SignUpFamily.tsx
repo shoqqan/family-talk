@@ -5,7 +5,7 @@ import Typography from "@mui/joy/Typography";
 import {useFormik} from "formik";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
-import {setFamilySpace} from "../../redux/reducers/profileReducer";
+import {setFamilySpaceActionCreator} from "../../redux/reducers/profileReducer";
 import {useNavigate} from "react-router-dom";
 import {AppStateType} from "../../redux/store";
 import {replaceWithReload} from "../../helpers/replaceWithReload";
@@ -47,7 +47,7 @@ const SignUpFamily = () => {
                 password,
                 picture: familyImage
             }).then((res) => {
-                dispatch(setFamilySpace(res.data))
+                dispatch(setFamilySpaceActionCreator(res.data))
                 navigate('/sign-up-user')
             })
         },
