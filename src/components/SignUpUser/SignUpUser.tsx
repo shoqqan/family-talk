@@ -8,6 +8,7 @@ import {MyAvatar, setLogged} from "../../redux/reducers/profileReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
 import {replaceWithReload} from "../../helpers/replaceWithReload";
+import {ROUTES} from "../../helpers/roates";
 
 export const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibG9naW4iOiJrc2RhZGEiLCJpYXQiOjE2NzA1MzQ3NzksImV4cCI6MTY3MDYyMTE3OX0.nnj1Hm9S3yB-JPMDIVO4lhSGE-fwPX4Z4RdKV6qTeG0"
 const validate = (values: any) => {
@@ -48,7 +49,7 @@ export const SignUpUser = () => {
     const familySpaceId = useSelector<AppStateType, number>(state => state.profilePage.familySpace.id);
 
     if (!familySpaceId) {
-        replaceWithReload('sign-up-family')
+        replaceWithReload(ROUTES.SIGN_UP_FAMILY)
     }
 
 
@@ -70,7 +71,6 @@ export const SignUpUser = () => {
                 picture: MyAvatar,
                 family_space_id: familySpaceId
             }).then((res) => {
-                dispatch(setLogged(true))
             })
         },
 
@@ -81,10 +81,8 @@ export const SignUpUser = () => {
             password: formik.values.password,
             name: formik.values.name,
             family_space_id: familySpaceId
-        }).then((res) => {
-            dispatch(setLogged(true))
-            replaceWithReload('home');
-            localStorage.setItem('token', res.data.token)
+        }).then(() => {
+            replaceWithReload(ROUTES.SIGN_IN);
         })
     }
 
@@ -133,18 +131,6 @@ export const SignUpUser = () => {
                     helperText={formik.touched.login && formik.errors.login}
                 />
 
-                {/*<TextField*/}
-                {/*    // html input attribute*/}
-                {/*    value={formik.values.email}*/}
-                {/*    onChange={formik.handleChange}*/}
-                {/*    name="email"*/}
-                {/*    type="email"*/}
-                {/*    placeholder="johndoe@email.com"*/}
-                {/*    // pass down to FormLabel as children*/}
-                {/*    label="Email"*/}
-                {/*    error={formik.touched.email && Boolean(formik.errors.email)}*/}
-                {/*    helperText={formik.touched.email && formik.errors.email}*/}
-                {/*/>*/}
                 <TextField
                     value={formik.values.password}
                     onChange={formik.handleChange}
@@ -167,30 +153,6 @@ export const SignUpUser = () => {
                     helperText={formik.touched.secondPassword && formik.errors.secondPassword}
                 />
 
-                {/*<TextField*/}
-                {/*    id="input-with-icon-textfield"*/}
-                {/*    label="Family Avatar *"*/}
-                {/*    variant="outlined"*/}
-
-                {/*    sx={{*/}
-                {/*        ".MuiOutlinedInput-root": {*/}
-                {/*            paddingTop: "1rem",*/}
-                {/*            flexDirection: "column"*/}
-                {/*        },*/}
-                {/*        img: {*/}
-                {/*            paddingRight: "1rem"*/}
-                {/*        }*/}
-                {/*    }}*/}
-                {/*    InputProps={{*/}
-                {/*        startAdornment: <img src="https://via.placeholder.com/180x150/200"/>*/}
-                {/*    }}*/}
-                {/*    placeholder="Enter image caption..."*/}
-                {/*/>*/}
-                {/*<Button type={"submit"} disabled={false} sx={{mt: 1 /* margin top *!/}>*/}
-                {/*    /!*<Link href="/home" sx={{textDecoration: 'none'}}>Sign up user!</Link>*!/*/}
-                {/*    sign up user*/}
-                {/*</Button>*/}
-                {/*<button type={'submit'} onClick={get}>lestgo</button>*/}
                 <Button type={'submit'} onClick={get}>Sign up user!</Button>
                 <Typography
                     endDecorator={<Link href="/sign-in">Sign in</Link>}

@@ -5,8 +5,8 @@ import {Button, FormControlLabel, Link, Radio, RadioGroup, TextField} from "@mui
 import {useFormik} from "formik";
 
 const Settings = () => {
-    const [lang,setLang] = useState('english')
-    const [theme,setTheme] = useState('dark')
+    const [lang, setLang] = useState('english')
+    const [theme, setTheme] = useState('dark')
     const formik = useFormik({
         initialValues: {
             language: lang,
@@ -30,9 +30,9 @@ const Settings = () => {
         <form onSubmit={formik.handleSubmit}>
             <Sheet variant="outlined" sx={{
                 width: 300,
-                mx: 'auto', // margin left & right
-                my: 4, // margin top & botom
-                py: 3, // padding top & bottom
+                mx: 'auto',
+                my: 4,
+                py: 3,
                 px: 2,
                 display: 'flex',
                 flexDirection: 'column',
@@ -52,9 +52,18 @@ const Settings = () => {
                     name={'language'}
                     value={formik.values.language}
                     onChange={e => handleRadioLanguageButtons(e)}>
-                    <FormControlLabel checked={lang==='kazakh'} value={'kazakh'} control={<Radio name={'language'} onClick={()=>{setLang('kazakh')}}/>} label="Қазақша"/>
-                    <FormControlLabel checked={lang==='english'} value={'english'} control={<Radio name={'language'} onClick={()=>{setLang('english')}}/>} label="English"/>
-                    <FormControlLabel checked={lang==='russian'}  value={'russian'}control={<Radio name={'language'} onClick={()=>{setLang('russian')}} />} label="Русский"/>
+                    <FormControlLabel checked={lang === 'kazakh'} value={'kazakh'}
+                                      control={<Radio name={'language'} onClick={() => {
+                                          setLang('kazakh')
+                                      }}/>} label="Қазақша"/>
+                    <FormControlLabel checked={lang === 'english'} value={'english'}
+                                      control={<Radio name={'language'} onClick={() => {
+                                          setLang('english')
+                                      }}/>} label="English"/>
+                    <FormControlLabel checked={lang === 'russian'} value={'russian'}
+                                      control={<Radio name={'language'} onClick={() => {
+                                          setLang('russian')
+                                      }}/>} label="Русский"/>
                 </RadioGroup>
 
                 <Typography level="body2" color={"neutral"}>Theme</Typography>
@@ -63,8 +72,14 @@ const Settings = () => {
                     name={'theme'}
                     value={formik.values.language}
                     onChange={e => handleRadioThemeButtons(e)}>
-                    <FormControlLabel checked={theme==='white'} value={'white'} control={<Radio name={'theme'} onClick={()=>{setTheme('white')}}/>} label="White"/>
-                    <FormControlLabel checked={theme==='dark'} value={'dark'} control={<Radio name={'theme'} onClick={()=>{setTheme('dark')}}/>} label="Dark"/>
+                    <FormControlLabel checked={theme === 'white'} value={'white'}
+                                      control={<Radio name={'theme'} onClick={() => {
+                                          setTheme('white')
+                                      }}/>} label="White"/>
+                    <FormControlLabel checked={theme === 'dark'} value={'dark'}
+                                      control={<Radio name={'theme'} onClick={() => {
+                                          setTheme('dark')
+                                      }}/>} label="Dark"/>
                 </RadioGroup>
                 <Button type={'submit'}>Apply</Button>
 

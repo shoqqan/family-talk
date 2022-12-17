@@ -19,13 +19,9 @@ import {token} from "../../SignUpUser/SignUpUser";
 
 export const ProfilePosts = () => {
     const posts = useSelector<AppStateType, PostType[]>(state => state.profilePage.posts)
-    // const user = useSelector<AppStateType, UserType>(state => state.profilePage.user)
-    // const [posts,setPosts] = useState<any[]>([])
     const dispatch = useDispatch()
     const [text, setText] = useState('')
     const onAddPost = () => {
-        // dispatch(addPostActionCreator(text))
-        // setText('')
         axios.post('https://family-talk.up.railway.app/posts', {
             title: text,
             picture: 'hah',
@@ -35,31 +31,9 @@ export const ProfilePosts = () => {
             }
         }).then((res) => {
             dispatch(addPostActionCreator(res.data))
-            // console.log(res.data);
-            // dispatch(getPostsFromBack(res.data))
         })
 
     }
-    useEffect(() => {
-        axios.get('https://family-talk.up.railway.app/posts', {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then((res) => {
-            console.log(res.data);
-            dispatch(getPostsFromBack(res.data))
-        })
-
-        // axios.get('https://family-talk.up.railway.app/auth/registration',{
-        //     headers: {
-        //         Authorization: `Bearer ${token}`
-        //     }
-        // }).then((res) => {
-        //     console.log(res.data);
-        //     dispatch(getPostsFromBack(res.data))
-        //     setPosts(res.data)
-        // })
-    }, [])
     const onPostChange = (text: ChangeEvent<HTMLTextAreaElement>) => {
         setText(text.currentTarget.value)
     }
@@ -85,7 +59,6 @@ export const ProfilePosts = () => {
                             <Button variant="outlined" onClick={onAddPost}>+</Button>
                         </IconButton>
                     </Paper>
-                    {/*<button onClick={onAddPost}>+</button>*/}
                 </div>
                 <div className={profilestyle.posts}>
 

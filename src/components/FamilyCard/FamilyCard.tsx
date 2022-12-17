@@ -5,10 +5,11 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import {Link} from "@mui/material";
+import {Avatar, AvatarGroup} from "@mui/joy";
 
 export default function FamilyCard() {
     return (
-        <Card sx={{ maxWidth: 345, maxHeight: 500 }}>
+        <Card sx={{ maxWidth: 345, maxHeight: 500, display:'flex', flexDirection:'column', bgcolor:'#202225'}}>
             <CardMedia
                 component="img"
                 alt="green iguana"
@@ -25,9 +26,12 @@ export default function FamilyCard() {
             </CardContent>
             <CardActions sx={{bgcolor:'#202225'}}>
                 <Link href="/sign-up-user">ADD FAMILY MEMBER</Link>
-                {/*<Button size="small" onClick={}>ADD FAMILY MEMBER</Button>*/}
-                {/*<Button size="small">DELETE MEMBER</Button>*/}
             </CardActions>
+            <AvatarGroup sx={{flexBasis:'10rem', color:'#FEFEFE', justifyContent:'space-evenly'}}>
+                <Avatar/>
+                <Avatar/>
+                <Avatar/>
+            </AvatarGroup>
         </Card>
     );
 }
