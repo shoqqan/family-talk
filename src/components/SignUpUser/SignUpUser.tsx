@@ -156,7 +156,7 @@ export const SignUpUser = () => {
                     value={formik.values.picture}
                     onChange={formik.handleChange}
                     id="input-with-icon-textfield"
-                    label="Family Avatar *"
+                    label="Your Avatar"
                     variant="outlined"
                     name='picture'
                     sx={{

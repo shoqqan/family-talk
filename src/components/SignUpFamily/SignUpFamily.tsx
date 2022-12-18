@@ -123,7 +123,7 @@ const SignUpFamily = () => {
                     id="input-with-icon-textfield"
                     label="Family Avatar *"
                     variant="outlined"
-
+                    name='familyImage'
                     sx={{
                         ".MuiOutlinedInput-root": {
                             paddingTop: "1rem",

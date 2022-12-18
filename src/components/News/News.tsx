@@ -6,8 +6,9 @@ import {getNewsTC, PostTypeNews} from "../../redux/reducers/newsReducer";
 
 export const News = () => {
     const posts = useSelector<AppStateType, PostTypeNews[]>(state => state.newsPage.posts)
+    const dispatch = useDispatch<any>()
     useEffect(()=>{
-        getNewsTC()
+        dispatch(getNewsTC())
     },[])
     return (
         <div style={{marginLeft: 400}}>

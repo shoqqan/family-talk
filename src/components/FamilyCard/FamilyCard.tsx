@@ -11,10 +11,13 @@ import {replaceWithReload} from "../../helpers/replaceWithReload";
 import {useEffect} from "react";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
-import {FamilySpaceType} from "../../redux/reducers/profileReducer";
+import {FamilySpaceType, UserType} from "../../redux/reducers/profileReducer";
 
 export default function FamilyCard() {
     const family = useSelector<AppStateType,FamilySpaceType>(state => state.profilePage.familySpace)
+    const user = useSelector<AppStateType,UserType>(state => state.profilePage.user)
+
+
     return (
         <Card sx={{ maxWidth: 345, maxHeight: 500, display:'flex', flexDirection:'column', bgcolor:'#202225'}}>
             <CardMedia
@@ -31,7 +34,7 @@ export default function FamilyCard() {
                     Hello we are first family in the FamilyTalk
                 </Typography>
             </CardContent>
-            <CardActions sx={{bgcolor:'#202225'}}>
+            <CardActions sx={{}}>
                 <Button onClick={()=>{replaceWithReload(ROUTES.SIGN_UP_FAMILY_MEMBER)}}>ADD FAMILY MEMBER</Button>
             </CardActions>
             <AvatarGroup sx={{flexBasis:'10rem', color:'#FEFEFE', justifyContent:'space-evenly'}}>
