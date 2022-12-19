@@ -1,7 +1,5 @@
 import {
-    addPostActionCreator,
-    getPostsFromBack,
-    MyAvatar,
+    createPostTC, getFamilySpaceTC, getPostsTC,
     PostType,
     UserType
 } from "../../../redux/reducers/profileReducer";
@@ -10,72 +8,95 @@ import {Post} from "./Post/Post";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../redux/store";
 import {ChangeEvent, useEffect, useState} from "react";
-import {Button, Divider, IconButton, InputBase, Paper, TextField} from "@mui/material";
+import {Button, Divider, Grid, IconButton, InputBase, Paper, TextField} from "@mui/material";
 import FamilyCard from "../../FamilyCard/FamilyCard";
 import {v1} from "uuid";
-import axios from "axios";
-import {token} from "../../SignUpUser/SignUpUser";
 
+// Loader
+// Padding to status
+// Editable span
+// if familymember pic null return default
 
 export const ProfilePosts = () => {
     const posts = useSelector<AppStateType, PostType[]>(state => state.profilePage.posts)
-    const dispatch = useDispatch()
+    const user = useSelector<AppStateType, UserType>(state => state.profilePage.user)
+    const dispatch = useDispatch<any>()
     const [text, setText] = useState('')
     const onAddPost = () => {
-        axios.post('https://family-talk.up.railway.app/posts', {
-            title: text,
-            picture: 'hah',
-        }, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then((res) => {
-            dispatch(addPostActionCreator(res.data))
-        })
+        dispatch(createPostTC(text, text))
 
     }
     const onPostChange = (text: ChangeEvent<HTMLTextAreaElement>) => {
         setText(text.currentTarget.value)
     }
+    function encodeImageFileAsURL(element) {
+        var file = element.files[0];
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            console.log('RESULT', reader.result)
+        }
+        reader.readAsDataURL(file);
+    }
+    useEffect(() => {
+        dispatch(getPostsTC())
+        dispatch(getFamilySpaceTC())
+
+    }, [])
+
     return (
         <div className={profilestyle.content}>
-            <div>
-                <div>
-                    <Paper
-                        component="form"
-                        sx={{p: '2px 4px', bgcolor: '#40444B', display: 'flex', alignItems: 'center', width: 700}}
+            <Grid container display='flex' justifyContent={'space-between'} columnSpacing={2}>
+                <Grid>
+                    <div>
+                        <div>
+                            <Paper
+                                component="form"
+                                sx={{
+                                    p: '2px 4px',
+                                    bgcolor: '#40444B',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    width: 700
+                                }}
+                                // style={profilestyle.postContainer}
+                            >
+                                <InputBase
+                                    sx={{ml: 1, flex: 1, color: '#FEFEFE'}}
+                                    placeholder="What's new?"
+                                    inputProps={{'aria-label': 'search google maps'}}
+                                    onChange={onPostChange}
+                                    value={text}
+                                />
 
-                    >
-                        <InputBase
-                            sx={{ml: 1, flex: 1, color: '#FEFEFE'}}
-                            placeholder="What's new?"
-                            inputProps={{'aria-label': 'search google maps'}}
-                            onChange={onPostChange}
-                            value={text}
-                        />
+                                <input type="file" onChange="encodeImageFileAsURL(this)"/>
+                                <Divider sx={{height: 28, m: 0.5}} orientation="vertical"/>
+                                <IconButton color="primary" sx={{p: '10px'}} aria-label="directions">
+                                    <Button variant="outlined" onClick={onAddPost}>+</Button>
+                                </IconButton>
+                            </Paper>
+                        </div>
+                        <div className={profilestyle.posts}>
 
-                        <Divider sx={{height: 28, m: 0.5}} orientation="vertical"/>
-                        <IconButton color="primary" sx={{p: '10px'}} aria-label="directions">
-                            <Button variant="outlined" onClick={onAddPost}>+</Button>
-                        </IconButton>
-                    </Paper>
-                </div>
-                <div className={profilestyle.posts}>
+                            {Array.isArray(posts) ? posts.map((post) => {
+                                return (<Post
 
-                    {posts.map((post) => {
-                        return (<Post
-                            author={{id: v1(), name: "Shoqan", avatar: MyAvatar}}
-                            key={post.id}
-                            id={post.id}
-                            image={post.picture}
-                            postText={post.title}
+                                    key={post.id}
+                                    id={post.id}
+                                    image={post.picture}
+                                    postText={post.title}
+                                    avatar={user.picture}
+                                    authorName={user.name}
 
-                        />)
+                                />)
 
-                    })}
-                </div>
-            </div>
-            <FamilyCard/>
+                            }) : null}
+                        </div>
+                    </div>
+                </Grid>
+                <Grid>
+                    <FamilyCard/>
+                </Grid>
+            </Grid>
         </div>
     )
 }
