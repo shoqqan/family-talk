@@ -4,7 +4,7 @@ import {Sheet} from "@mui/joy";
 import Typography from "@mui/joy/Typography";
 import {useFormik} from "formik";
 import axios from "axios";
-import {MyAvatar, setLogged} from "../../redux/reducers/profileReducer";
+import {MyAvatar, setLoggedActionCreator} from "../../redux/reducers/profileReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
 import {replaceWithReload} from "../../helpers/replaceWithReload";

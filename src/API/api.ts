@@ -32,7 +32,7 @@ export const postsApi = {
 }
 
 export const newsApi = {
-    get: () =>{
-        return instance().get(`news`).then(r=>r)
+    get: (page:number) =>{
+        return instance().get(`news?page=${page}`).then(r=>r)
     }
 }

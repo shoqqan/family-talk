@@ -38,14 +38,14 @@ const SignUpFamily = () => {
             password: '',
             secondPassword: '',
             description: '',
-            familyImage: ''
+            picture: ''
         }, validate,
-        onSubmit: ({login, familyImage, familyName, password}) => {
+        onSubmit: ({login, picture, familyName, password}) => {
             axios.post('https://family-talk.up.railway.app/family-space', {
                 login,
                 title: familyName,
                 password,
-                picture: familyImage
+                picture
             }).then((res) => {
                 dispatch(setFamilySpaceActionCreator(res.data))
                 navigate('/sign-up-user')
@@ -120,10 +120,12 @@ const SignUpFamily = () => {
                 />
 
                 <TextField
+                    value={formik.values.picture}
+                    onChange={formik.handleChange}
                     id="input-with-icon-textfield"
                     label="Family Avatar *"
                     variant="outlined"
-                    name='familyImage'
+                    name='picture'
                     sx={{
                         ".MuiOutlinedInput-root": {
                             paddingTop: "1rem",

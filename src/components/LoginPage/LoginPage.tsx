@@ -10,7 +10,7 @@ import {useNavigate} from "react-router-dom";
 import {replaceWithReload} from "../../helpers/replaceWithReload";
 import {Form, useFormik} from "formik";
 import axios from "axios";
-import {MyAvatar, setFamilySpaceActionCreator, setLogged, setUser} from "../../redux/reducers/profileReducer";
+import {MyAvatar, setFamilySpaceActionCreator, setLoggedActionCreator, setUserActionCreator} from "../../redux/reducers/profileReducer";
 import {useDispatch} from "react-redux";
 
 export function LoginPage() {
@@ -29,8 +29,8 @@ export function LoginPage() {
     }, [theme]);
     const formik = useFormik({
         initialValues: {
-            login: 'joske',
-            password: '321',
+            login: '',
+            password: '',
             secondPassword: '',
 
         },
@@ -41,9 +41,8 @@ export function LoginPage() {
                 login,
                 password,
             }).then((res) => {
-                // dispatch(setLogged(true))
                 localStorage.setItem('token', res.data.token)
-                dispatch(setLogged(true))
+                dispatch(setLoggedActionCreator(true))
                 replaceWithReload('home')
             })
         },

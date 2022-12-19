@@ -11,16 +11,7 @@ import Settings from "./components/Settings/Settings";
 import {AuthRedirect} from "./hoc/AuthRedirect";
 import {ROUTES} from "./helpers/roates";
 import SignUpFamilyMember from "./components/AddFamilyMember/AddFamilyMember";
-import axios from "axios";
-import {useDispatch} from "react-redux";
-import {authMeTC} from "./redux/reducers/profileReducer";
 
-
-//create enums or constants for routes; // => helpers/routes.ts DONE
-//cleaning everywhere no logs, no hardcode DONE
-//get data of family and user from back
-//change header photo to icon of logout
-//
 function App() {
     return (
         <Routes>
