@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import {useEffect} from "react";
+import {useTranslation} from "react-i18next";
 
 type PaginationControlledPropsType = {
     totalCount: number,
@@ -11,7 +12,7 @@ type PaginationControlledPropsType = {
 }
 
 export function PaginationControlled(props: PaginationControlledPropsType) {
-
+    const {t} = useTranslation()
     // const [page, setPage] = React.useState(1);
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
         props.onPageChange(value);
@@ -22,7 +23,7 @@ export function PaginationControlled(props: PaginationControlledPropsType) {
     //     [props.page])
     return (
         <Stack spacing={2}>
-            <Typography>Page: {props.page}</Typography>
+            <Typography>{t("NEWS.PAGINATION")}: {props.page}</Typography>
             <Pagination count={props.totalCount} page={props.page} onChange={handleChange}/>
         </Stack>
     );

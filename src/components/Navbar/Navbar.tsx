@@ -5,14 +5,12 @@ import {Link, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import {Dns, People, PermMedia, Public, Settings} from "@mui/icons-material";
 import {NavLink, useNavigate} from "react-router-dom";
 import {ROUTES} from "../../helpers/roates";
+import {useTranslation} from "react-i18next";
 
 export const Navbar = () => {
     const navigate = useNavigate()
-    // const data = [
-    //     {icon: <People/>, label: 'Authentication'},
-    //     {icon: <Dns/>, label: 'Database'},
-    //     {icon: <PermMedia/>, label: 'Storage'},
-    //     {icon: <Public/>, label: 'Hosting'},]
+    const {t} = useTranslation()
+
     return (
         <nav style={{gridArea: 'n', minHeight: '93vh'}}>
             <ListItemButton
@@ -28,7 +26,7 @@ export const Navbar = () => {
 
                 </ListItemIcon>
                 <ListItemText
-                    primary={'Profile'}
+                    primary={t("NAVBAR.PROFILE")}
                     primaryTypographyProps={{fontSize: 14, fontWeight: 'medium'}}
                 />
             </ListItemButton>
@@ -42,7 +40,7 @@ export const Navbar = () => {
                     {<Public/>}
                 </ListItemIcon>
                 <ListItemText
-                    primary={'News'}
+                    primary={t("NAVBAR.NEWS")}
                     primaryTypographyProps={{fontSize: 14, fontWeight: 'medium'}}
                 />
             </ListItemButton>
@@ -58,7 +56,7 @@ export const Navbar = () => {
                     onClick={() => {
                         navigate(ROUTES.SETTINGS)
                     }}
-                    primary={'Settings'}
+                    primary={t("NAVBAR.SETTINGS")}
                     primaryTypographyProps={{fontSize: 14, fontWeight: 'medium'}}
                 />
             </ListItemButton>

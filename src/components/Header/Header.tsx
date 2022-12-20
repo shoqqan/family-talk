@@ -17,6 +17,7 @@ export const Header = () => {
         replaceWithReload(ROUTES.SIGN_IN)
         localStorage.removeItem('token')
     }
+
     return (
         <header className={style.header}>
             <div className={style.logo}>

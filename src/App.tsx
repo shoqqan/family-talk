@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import './assets/i18n/i18n'
 import {Navigate, Route, Routes} from "react-router-dom";
 import {LoginPage} from "./components/LoginPage/LoginPage";
 import SignUpFamily from "./components/SignUpFamily/SignUpFamily";
@@ -10,7 +11,6 @@ import {Profile} from "./components/Profile/Profile";
 import Settings from "./components/Settings/Settings";
 import {AuthRedirect} from "./hoc/AuthRedirect";
 import {ROUTES} from "./helpers/roates";
-
 function App() {
     return (
         <div className='app-wrapper'>

@@ -6,6 +6,7 @@ import {AppStateType} from "../../../redux/store";
 import {ChangeEvent, useEffect, useState} from "react";
 import {Button, Divider, Grid, IconButton, InputBase, Paper} from "@mui/material";
 import FamilyCard from "../../FamilyCard/FamilyCard";
+import {useTranslation} from "react-i18next";
 // Editable span
 // if familymember pic null return default
 
@@ -13,6 +14,7 @@ export const ProfilePosts = () => {
     const posts = useSelector<AppStateType, PostType[]>(state => state.profilePage.posts)
     const user = useSelector<AppStateType, UserType>(state => state.profilePage.user)
     const dispatch = useDispatch<any>()
+    const {t} = useTranslation()
     const [text, setText] = useState('')
 
     const onAddPost = () => {
@@ -48,7 +50,7 @@ export const ProfilePosts = () => {
                             >
                                 <InputBase
                                     sx={{ml: 1, flex: 1, color: '#FEFEFE'}}
-                                    placeholder="What's new?"
+                                    placeholder={t("PROFILE.POST_TITLE")}
                                     inputProps={{'aria-label': 'search google maps'}}
                                     onChange={onPostChange}
                                     value={text}

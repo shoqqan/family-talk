@@ -1,0 +1,19 @@
+{
+  "NAVBAR": {
+    "PROFILE": "Profile",
+    "NEWS": "News",
+    "SETTINGS": "Settings"
+  },
+  "PROFILE": {
+    "POST_TITLE": "What's new?",
+    "ADD_FAMILY_MEMBER": "ADD FAMILY MEMBER"
+  },
+  "NEWS": {
+    "PAGINATION": "Page"
+  },
+  "SETTINGS": {
+    "TITLE": "Settings",
+    "LANGUAGE": "Language",
+    "THEME": "Theme"
+  }
+}
