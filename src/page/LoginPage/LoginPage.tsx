@@ -10,6 +10,20 @@ import {setLoggedActionCreator} from "../../redux/reducers/profileReducer";
 import {useDispatch} from "react-redux";
 import s from './LoginPage.module.css';
 
+const validate = ({login, password}: any) => {
+    const errors: any = {};
+
+    if (!login) {
+        errors.login = 'Required';
+    }
+
+    if (!password) {
+        errors.password = 'Required';
+    }
+
+    return errors;
+};
+
 export function LoginPage() {
     const dispatch = useDispatch()
 
@@ -17,8 +31,8 @@ export function LoginPage() {
         initialValues: {
             login: '',
             password: '',
-            secondPassword: '',
         },
+        validate,
         onSubmit: ({login, password}) => {
             // console.log(login, password)
             axios.post('https://family-talk.up.railway.app/auth/login', {
@@ -30,8 +44,8 @@ export function LoginPage() {
                 replaceWithReload('home')
             })
         },
-
     });
+
     return (
         <div className={s.wrapper}>
             <form onSubmit={formik.handleSubmit}>
@@ -63,6 +77,8 @@ export function LoginPage() {
                         type="text"
                         placeholder="shoqqan"
                         label="Login"
+                        error={formik.touched.login && Boolean(formik.errors.login)}
+                        helperText={formik.touched.login && formik.errors.login}
                     />
                     <TextField
                         value={formik.values.password}
@@ -71,8 +87,10 @@ export function LoginPage() {
                         type="password"
                         placeholder="password"
                         label="Password"
+                        error={formik.touched.password && Boolean(formik.errors.password)}
+                        helperText={formik.touched.password && formik.errors.password}
                     />
-                    <Button type={'submit'} sx={{mt: 1}}>
+                    <Button disabled={formik.touched && !formik.isValid} type={'submit'} sx={{mt: 1}}>
                         Log in
                     </Button>
                     <Typography

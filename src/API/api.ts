@@ -1,5 +1,4 @@
 import axios, {AxiosInstance} from "axios";
-import {UserType} from "../redux/reducers/profileReducer";
 
 const instance = (): AxiosInstance => {
     const token = localStorage.getItem('token')
@@ -27,11 +26,7 @@ export const postsApi = {
         return instance().get(`posts`).then(r => r.data)
     },
     post: (title: string, content: string, picture?: string) => {
-        let body: any = {title, content};
-        if (picture) {
-            body.picture = [picture]
-        }
-        return instance().post('posts', body).then(r => r.data)
+        return instance().post('posts', {title, content, picture}).then(r => r.data)
     }
 }
 

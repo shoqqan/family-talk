@@ -1,7 +1,7 @@
 import React from 'react';
 import {useSelector} from "react-redux";
 import {AppStateType} from "../redux/store";
-import {LoginPage} from "../components/LoginPage/LoginPage";
+import {LoginPage} from "../page/LoginPage/LoginPage";
 
 
 export const AuthRedirect: React.FC<{children: JSX.Element}> = ({children}) => {

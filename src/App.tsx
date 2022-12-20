@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
 import {Navigate, Route, Routes} from "react-router-dom";
-import {LoginPage} from "./components/LoginPage/LoginPage";
-import SignUpFamily from "./components/SignUpFamily/SignUpFamily";
-import SignUpUser from "./components/SignUpUser/SignUpUser";
+import {LoginPage} from "./page/LoginPage/LoginPage";
+import SignUpFamily from "./page/SignUpFamily/SignUpFamily";
+import SignUpUser from "./page/SignUpUser/SignUpUser";
 import {Home} from "./page/Home/Home";
-import {News} from "./components/News/News";
-import {Profile} from "./components/Profile/Profile";
-import Settings from "./components/Settings/Settings";
+import {News} from "./page/Home/pages/News/News";
+import {Profile} from "./page/Home/pages/Profile/Profile";
+import Settings from "./page/Home/pages/Settings/Settings";
 import {AuthRedirect} from "./hoc/AuthRedirect";
 import {ROUTES} from "./helpers/roates";
 

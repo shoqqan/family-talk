@@ -75,7 +75,6 @@ export type ProfileActionType =
     | ReturnType<typeof setUserActionCreator>
     | SetPostsActionType
     | ChangeProfileStatusActionType
-// | SetIsLoadedActionType
 
 export const addPostActionCreator = (post: PostType): AddPostActionType => {
     return {
@@ -153,14 +152,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Pr
         case 'SET-IS-LOGGED':
             return {...state, isLogged: action.isLogged}
         case 'SET-USER': {
-            if (action.user.picture !== '') {
-                return {...state, user: action.user}
-            } else {
-                return {
-                    ...state,
-                    user: {...action.user, picture: 'https://lowcars.net/wp-content/uploads/2017/02/userpic.png'}
-                }
-            }
+            return {...state, user: action.user}
         }
         case 'SET-POSTS':
             return {...state, posts: action.posts, user: {...state.user, posts: action.posts}}

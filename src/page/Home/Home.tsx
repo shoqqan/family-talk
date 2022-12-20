@@ -1,13 +1,10 @@
 import React, {useEffect} from 'react';
-import {Header} from "../../components/Header/Header";
-import {Navbar} from "../../components/Navbar/Navbar";
+import {Header} from "./components/Header/Header";
+import {Navbar} from "./components/Navbar/Navbar";
 import {Outlet} from "react-router-dom";
 import s from './Home.module.css';
-import axios from "axios";
-import {authMeTC, setLoggedActionCreator, setUserActionCreator} from "../../redux/reducers/profileReducer";
+import {authMeTC} from "../../redux/reducers/profileReducer";
 import {useDispatch, useSelector} from "react-redux";
-import {replaceWithReload} from "../../helpers/replaceWithReload";
-import {ROUTES} from "../../helpers/roates";
 import {AppStateType} from "../../redux/store";
 import {BallTriangle} from "react-loader-spinner";
 

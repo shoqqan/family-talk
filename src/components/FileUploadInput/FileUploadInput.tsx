@@ -2,7 +2,7 @@ import React, {ChangeEvent, useRef, useState} from 'react';
 import {Button} from "@mui/material";
 
 export const FileUploadInput = ({setBase64}: any) => {
-    const [file, setFile] = useState<File>();
+    const [file, setFile] = useState<File | null>();
 
     const inputRef = useRef<HTMLInputElement | null>(null);
 

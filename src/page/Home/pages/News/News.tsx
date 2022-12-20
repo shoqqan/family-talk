@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../redux/store";
+import {AppStateType} from "../../../../redux/store";
+import {getNewsTC, NewsPageType} from "../../../../redux/reducers/newsReducer";
+import {PaginationControlled} from "../../../../components/Pagination/PaginationControlled";
 import {Post} from "../Profile/ProfilePostsContainer/Post/Post";
-import {getNewsTC, NewsPageType} from "../../redux/reducers/newsReducer";
-import {PaginationControlled} from "../Pagination/PaginationControlled";
-import {PostType} from "../../redux/reducers/profileReducer";
 
 export const News = () => {
     const newsPage = useSelector<AppStateType, NewsPageType>(state => state.newsPage)

@@ -12,6 +12,7 @@
 .content{
     grid-area: c;
     background-color: #36393F;
+    overflow: auto;
 }
 .loader{
     width: 100%;

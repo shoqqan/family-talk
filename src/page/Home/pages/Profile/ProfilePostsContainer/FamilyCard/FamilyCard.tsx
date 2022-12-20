@@ -7,12 +7,12 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import {Button} from "@mui/material";
 import {Avatar, AvatarGroup} from "@mui/joy";
-import {ROUTES} from "../../helpers/roates";
-import {replaceWithReload} from "../../helpers/replaceWithReload";
+import {ROUTES} from "../../../../../../helpers/roates";
+import {replaceWithReload} from "../../../../../../helpers/replaceWithReload";
 import {useSelector} from "react-redux";
-import {AppStateType} from "../../redux/store";
-import {FamilySpaceType, getFamilySpaceTC} from "../../redux/reducers/profileReducer";
-import {EditableSpan} from "../EditableSpan/EditableSpan";
+import {AppStateType} from "../../../../../../redux/store";
+import {FamilySpaceType, getFamilySpaceTC} from "../../../../../../redux/reducers/profileReducer";
+import {EditableSpan} from "../../../../../../components/EditableSpan/EditableSpan";
 
 export default function FamilyCard() {
     const family = useSelector<AppStateType, FamilySpaceType>(state => state.profilePage.familySpace)
@@ -32,7 +32,7 @@ export default function FamilyCard() {
                 component="img"
                 alt="Family picture"
                 height="30"
-                image={family.picture}
+                image={family.picture || 'https://png.pngtree.com/png-vector/20190228/ourmid/pngtree-family-icon-design-template-vector-illustration-png-image_710428.jpg'}
                 sx={{height: '50px'}}
             />
             <CardContent sx={{bgcolor: '#40444B'}}>

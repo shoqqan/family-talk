@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React from "react";
 import profilestyle from './Post.module.css'
-import {Avatar, Button, Container, IconButton, Paper, Stack} from "@mui/material";
+import {Avatar, Container, IconButton, Paper, Stack} from "@mui/material";
 import ThumbUpOffAltOutlinedIcon from '@mui/icons-material/ThumbUpOffAltOutlined';
 import ChatRoundedIcon from '@mui/icons-material/ChatRounded';
 
@@ -10,9 +10,8 @@ type PropsType = {
     image?: string
     authorName: string
     avatar: string
-
-
 }
+
 export const Post = React.memo((props: PropsType) => {
 
     return (
@@ -45,9 +44,5 @@ export const Post = React.memo((props: PropsType) => {
                 </IconButton>
             </Stack>
         </Paper>
-
-
     )
-
-
 })

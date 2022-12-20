@@ -9,10 +9,11 @@
 
 
 .posts{
-    height:700px;
-    overflow-y: auto;
+    /*height:700px;*/
+    /*border: 10px solid #2F3136;*/
+    /*overflow-y: auto;*/
 }
-/*p: '2px 4px', bgcolor: '#40444B', display: 'flex', alignItems: 'center', width: 700}*/
+
 .postContainer{
     padding: 2px 4px;
     background-color: #40444B;
@@ -21,3 +22,8 @@
     max-width: 700px;
 }
 
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
