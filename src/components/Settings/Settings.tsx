@@ -6,8 +6,7 @@ import {useFormik} from "formik";
 import {useTranslation} from "react-i18next";
 
 const Settings = () => {
-    const {i18n} = useTranslation();
-    const {t} = useTranslation()
+    const {i18n,t} = useTranslation();
     const [selectedLanguage, setSelectedLanguage] = useState('eng')
     const [theme, setTheme] = useState('dark')
 
