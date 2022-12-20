@@ -10,7 +10,7 @@ import {useNavigate} from "react-router-dom";
 import {AppStateType} from "../../redux/store";
 import {replaceWithReload} from "../../helpers/replaceWithReload";
 import {ROUTES} from "../../helpers/roates";
-import {FileUploadInput} from "../FileUploadInput/FileUploadInput";
+import {FileUploadInput} from "../../components/FileUploadInput/FileUploadInput";
 
 const validate = (values: any) => {
     const errors: any = {};

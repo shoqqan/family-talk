@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
 import {replaceWithReload} from "../../helpers/replaceWithReload";
 import {ROUTES} from "../../helpers/roates";
-import {FileUploadInput} from "../FileUploadInput/FileUploadInput";
+import {FileUploadInput} from "../../components/FileUploadInput/FileUploadInput";
 import {useLocation} from "react-router-dom";
 import {authMeTC} from "../../redux/reducers/profileReducer";
 

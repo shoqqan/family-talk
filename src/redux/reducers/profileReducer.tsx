@@ -153,6 +153,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Pr
         case 'SET-IS-LOGGED':
             return {...state, isLogged: action.isLogged}
         case 'SET-USER': {
+            console.log(action.user)
             if (action.user.picture !== '') {
                 return {...state, user: action.user}
             } else {

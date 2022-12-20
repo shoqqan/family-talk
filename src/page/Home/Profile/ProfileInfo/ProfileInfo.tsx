@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import style from './ProfileInfo.module.css'
 import {useSelector} from "react-redux";
-import {AppStateType} from "../../../redux/store";
-import {EditableSpan} from "../../EditableSpan/EditableSpan";
+import {AppStateType} from "../../../../redux/store";
+import {EditableSpan} from "../../../../components/EditableSpan/EditableSpan";
 import {Typography} from "@mui/material";
-import {AuthorType} from "../../../redux/reducers/newsReducer";
+import {AuthorType} from "../../../../redux/reducers/newsReducer";
 
 
 export const ProfileInfo = () => {

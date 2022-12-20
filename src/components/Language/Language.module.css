@@ -1,0 +1,12 @@
+.wrapper {
+    position: relative;
+}
+
+
+.languages {
+    position: absolute;
+    top: 60px;
+    left: -15px;
+    width: 60px;
+    display: flex;
+}

@@ -1,12 +1,13 @@
-import {createPostTC, getFamilySpaceTC, getPostsTC, PostType, UserType} from "../../../redux/reducers/profileReducer";
+import {createPostTC, getFamilySpaceTC, getPostsTC, PostType, UserType} from "../../../../redux/reducers/profileReducer";
 import profilestyle from './ProfilePosts.module.css'
 import {Post} from "./Post/Post";
 import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../../redux/store";
+import {AppStateType} from "../../../../redux/store";
 import {ChangeEvent, useEffect, useState} from "react";
 import {Button, Divider, Grid, IconButton, InputBase, Paper} from "@mui/material";
-import FamilyCard from "../../FamilyCard/FamilyCard";
+import FamilyCard from "./FamilyCard/FamilyCard";
 import {useTranslation} from "react-i18next";
+import EmptyPosts from "../../../../components/EmptyPosts/EmptyPosts";
 // Editable span
 // if familymember pic null return default
 
@@ -65,7 +66,7 @@ export const ProfilePosts = () => {
                         </div>
                         <div className={profilestyle.posts}>
 
-                            {Array.isArray(posts) ? posts.map((post) => {
+                            {posts.length>0 ? posts.map((post) => {
                                 return (<Post
 
                                     key={post.id}
@@ -77,7 +78,7 @@ export const ProfilePosts = () => {
 
                                 />)
 
-                            }) : null}
+                            }) : <EmptyPosts news={false}/>}
                         </div>
                     </div>
                 </Grid>
