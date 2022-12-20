@@ -1,18 +1,5 @@
-.App {
-    height: 100%;
-    display: grid;
-    grid-template-areas:
-"h h"
-"n c";
-    grid-template-rows: 60px 1fr;
-    grid-template-columns: 2fr 10fr;
-    grid-gap: 10px;
-    background-color: #202225;
+.app-wrapper {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
 }
-.App-content{
-    grid-area: c;
-    background-color: #36393F;
-}
-
-
-

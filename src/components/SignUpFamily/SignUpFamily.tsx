@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, Link, TextField} from "@mui/material";
 import {Sheet} from "@mui/joy";
 import Typography from "@mui/joy/Typography";
@@ -10,6 +10,7 @@ import {useNavigate} from "react-router-dom";
 import {AppStateType} from "../../redux/store";
 import {replaceWithReload} from "../../helpers/replaceWithReload";
 import {ROUTES} from "../../helpers/roates";
+import {FileUploadInput} from "../FileUploadInput/FileUploadInput";
 
 const validate = (values: any) => {
     const errors: any = {};
@@ -23,32 +24,33 @@ const validate = (values: any) => {
     return errors;
 };
 const SignUpFamily = () => {
+    const [base64, setBase64] = useState<string>();
     const isLogged = useSelector<AppStateType, boolean>(state =>  state.profilePage.isLogged)
-    console.log('looll')
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     if (isLogged) {
         replaceWithReload(ROUTES.HOME)
     }
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
     const formik = useFormik({
         initialValues: {
             familyName: '',
+            status: '',
             login: '',
             password: '',
             secondPassword: '',
-            description: '',
-            picture: ''
         }, validate,
-        onSubmit: ({login, picture, familyName, password}) => {
+        onSubmit: ({familyName, status, login, password}) => {
             axios.post('https://family-talk.up.railway.app/family-space', {
                 login,
                 title: familyName,
                 password,
-                picture
+                status,
+                picture: base64
             }).then((res) => {
                 dispatch(setFamilySpaceActionCreator(res.data))
-                navigate('/sign-up-user')
+                navigate('/sign-up-user', {state: {from: 'login'}})
             })
         },
     });
@@ -59,9 +61,9 @@ const SignUpFamily = () => {
         <form onSubmit={formik.handleSubmit}>
             <Sheet variant="outlined" sx={{
                 width: 300,
-                mx: 'auto', // margin left & right
-                my: 4, // margin top & botom
-                py: 3, // padding top & bottom
+                mx: 'auto',
+                my: 4,
+                py: 3,
                 px: 2,
                 display: 'flex',
                 flexDirection: 'column',
@@ -86,6 +88,18 @@ const SignUpFamily = () => {
                     error={formik.touched.familyName && Boolean(formik.errors.familyName)}
                     helperText={formik.touched.familyName && formik.errors.familyName}
                 />
+
+                <TextField
+                    value={formik.values.status}
+                    onChange={formik.handleChange}
+                    name="status"
+                    type="text"
+                    placeholder="Don't worry be happy!"
+                    label="Family status"
+                    error={formik.touched.status && Boolean(formik.errors.status)}
+                    helperText={formik.touched.status && formik.errors.status}
+                />
+
 
                 <TextField
                     value={formik.values.login}
@@ -119,37 +133,22 @@ const SignUpFamily = () => {
                     helperText={formik.touched.secondPassword && formik.errors.secondPassword}
                 />
 
-                <TextField
-                    value={formik.values.picture}
-                    onChange={formik.handleChange}
-                    id="input-with-icon-textfield"
-                    label="Family Avatar *"
-                    variant="outlined"
-                    name='picture'
-                    sx={{
-                        ".MuiOutlinedInput-root": {
-                            paddingTop: "1rem",
-                            flexDirection: "column"
-                        },
-                        img: {
-                            paddingRight: "1rem"
-                        }
-                    }}
-                    InputProps={{
-                        startAdornment: <img src="https://via.placeholder.com/180x150/200"/>
-                    }}
-                    placeholder="Enter image caption..."
-                />
+                <Typography
+                    endDecorator={<FileUploadInput setBase64={setBase64}/>}
+                    fontSize="sm"
+                    sx={{alignSelf: 'center'}}
+                >
+                    Family photo:
+                </Typography>
                 <Button type={"submit"} disabled={false} sx={{mt: 1 /* margin top */}}>
                     Sign
                 </Button>
                 <Typography
-                    endDecorator={<Link href="/sign-in">Sign in</Link>}
+                    endDecorator={<Link onClick={() => replaceWithReload(ROUTES.SIGN_IN)}>Sign in</Link>}
                     fontSize="sm"
                     sx={{alignSelf: 'center'}}
                 >
                     Already have an account?
-
                 </Typography>
 
             </Sheet>

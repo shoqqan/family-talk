@@ -1,8 +1,8 @@
 import React from 'react';
 import style from './Header.module.css'
 import img from '../../assets/images/project-logo.png'
-import {Avatar, IconButton, Typography} from "@mui/material";
-import {MyAvatar, setLoggedActionCreator} from "../../redux/reducers/profileReducer";
+import {IconButton, Typography} from "@mui/material";
+import {setLoggedActionCreator} from "../../redux/reducers/profileReducer";
 import {useDispatch} from "react-redux";
 import LogoutIcon from '@mui/icons-material/Logout';
 import {replaceWithReload} from "../../helpers/replaceWithReload";
@@ -15,7 +15,7 @@ export const Header = () => {
     const logOut = () => {
         dispatch(setLoggedActionCreator(false))
         replaceWithReload(ROUTES.SIGN_IN)
-        localStorage.clear()
+        localStorage.removeItem('token')
     }
     return (
         <header className={style.header}>

@@ -1,10 +1,9 @@
-import {v1} from "uuid";
 import {Dispatch} from "redux";
 import {authApi, familyApi, postsApi} from "../../API/api";
 import {replaceWithReload} from "../../helpers/replaceWithReload";
 import {ROUTES} from "../../helpers/roates";
 import {AuthorType} from "./newsReducer";
-import {setIsLoadingActionCreator, SetIsLoadedActionType} from "./appReducer";
+import {setIsLoadingActionCreator} from "./appReducer";
 
 type AddPostActionType = {
     type: 'ADD-POST'
@@ -47,7 +46,7 @@ export type FamilySpaceType = {
     picture: string
     title: string,
     updatedAt: string
-    status:string
+    status: string
 }
 export type  PostType = {
     author: AuthorType
@@ -156,8 +155,11 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Pr
         case 'SET-USER': {
             if (action.user.picture !== '') {
                 return {...state, user: action.user}
-            }else{
-                return {...state,user:{...action.user,picture:'https://lowcars.net/wp-content/uploads/2017/02/userpic.png'}}
+            } else {
+                return {
+                    ...state,
+                    user: {...action.user, picture: 'https://lowcars.net/wp-content/uploads/2017/02/userpic.png'}
+                }
             }
         }
         case 'SET-POSTS':
@@ -171,15 +173,14 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Pr
 
 export const authMeTC = () => (dispatch: Dispatch) => {
     dispatch(setIsLoadingActionCreator(true))
-    authApi.me().then((res: UserType) => {
-        dispatch(setLoggedActionCreator(true))
-        dispatch(setUserActionCreator(res))
-    })
-        .catch(() => {
-            replaceWithReload(ROUTES.SIGN_IN)
-        })
-        .finally(() => {
+    authApi.me()
+        .then((res: UserType) => {
+            dispatch(setLoggedActionCreator(true))
+            dispatch(setUserActionCreator(res))
             setIsLoadingActionCreator(false)
+        })
+        .catch(() => {
+            localStorage.removeItem('token')
         })
 }
 
@@ -196,9 +197,9 @@ export const getPostsTC = () => (dispatch: Dispatch) => {
         })
 }
 
-export const createPostTC = (title: string, content: string) => (dispatch: Dispatch) => {
+export const createPostTC = (title: string, content: string, pircture?: string) => (dispatch: Dispatch) => {
     dispatch(setIsLoadingActionCreator(true))
-    postsApi.post(title, content)
+    postsApi.post(title, content, pircture)
         .then((res) => {
             dispatch(addPostActionCreator(res))
         })

@@ -1,56 +1,32 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Link, TextField} from "@mui/material";
 import {Sheet} from "@mui/joy";
 import Typography from "@mui/joy/Typography";
 import {useFormik} from "formik";
 import axios from "axios";
-import {MyAvatar, setLoggedActionCreator} from "../../redux/reducers/profileReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
 import {replaceWithReload} from "../../helpers/replaceWithReload";
 import {ROUTES} from "../../helpers/roates";
+import {FileUploadInput} from "../FileUploadInput/FileUploadInput";
+import {useLocation} from "react-router-dom";
+import {authMeTC} from "../../redux/reducers/profileReducer";
 
-const validate = (values: any) => {
-    const errors: any = {};
-    if (!values.name) {
-        errors.name = 'Required';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid name';
-    }
-
-    if (!values.login) {
-        errors.login = 'Required';
-    } else if (values.login.length > 15) {
-        errors.login = 'Must be 15 characters or less';
-    }
-
-
-    if (!values.email) {
-        errors.email = 'Required';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid email address';
-    }
-
-    if (!values.password) {
-        errors.password = 'Required'
-    } else if (values.password !== values.secondPassword) {
-        errors.password = 'Password does not match'
-    }
-    if (!values.secondPassword) {
-        errors.secondPassword = 'Password does not match'
-    } else if (values.password !== values.secondPassword) {
-        errors.secondPassword = 'Password does not match'
-    }
-    return errors;
-};
 export const SignUpUser = () => {
-    const dispatch = useDispatch();
+    const location = useLocation();
+    const [base64, setBase64] = useState<string>();
+    const dispatch = useDispatch<any>();
     const familySpaceId = useSelector<AppStateType, number>(state => state.profilePage.familySpace.id);
+    const token = localStorage.getItem('token');
 
-    if (!familySpaceId) {
+    useEffect(() => {
+        if (token)
+            dispatch(authMeTC())
+    }, [])
+
+    if (!familySpaceId && !token) {
         replaceWithReload(ROUTES.SIGN_UP_FAMILY)
     }
-
 
     const formik = useFormik({
         initialValues: {
@@ -58,32 +34,22 @@ export const SignUpUser = () => {
             login: '',
             password: '',
             secondPassword: '',
-            picture:''
         },
-        validate,
-        onSubmit: ({name, login, password,picture}) => {
-            alert(JSON.stringify(name, null, 2));
+        onSubmit: ({name, login, password}) => {
             axios.post('https://family-talk.up.railway.app/auth/registration', {
                 login,
                 password,
                 name,
-                picture,
+                picture: base64,
                 family_space_id: familySpaceId
-            }).then((res) => {
+            }).then(() => {
+                redirectToLogin();
             })
         },
-
     });
-    const get = () => {
-        axios.post('https://family-talk.up.railway.app/auth/registration', {
-            login: formik.values.login,
-            password: formik.values.password,
-            name: formik.values.name,
-            picture: formik.values.picture,
-            family_space_id: familySpaceId
-        }).then(() => {
-            replaceWithReload(ROUTES.SIGN_IN);
-        })
+
+    const redirectToLogin = () => {
+        replaceWithReload(ROUTES.SIGN_IN);
     }
 
     return (
@@ -115,8 +81,6 @@ export const SignUpUser = () => {
                     placeholder="f.e. 'Shoqan Tataev'"
                     // pass down to FormLabel as children
                     label="Enter your name"
-                    error={formik.touched.name && Boolean(formik.errors.name)}
-                    helperText={formik.touched.name && formik.errors.name}
                 />
                 <TextField
                     value={formik.values.login}
@@ -127,8 +91,6 @@ export const SignUpUser = () => {
                     placeholder="f.e. 'shoqqan'"
                     // pass down to FormLabel as children
                     label="Enter your login"
-                    error={formik.touched.login && Boolean(formik.errors.login)}
-                    helperText={formik.touched.login && formik.errors.login}
                 />
 
                 <TextField
@@ -138,8 +100,6 @@ export const SignUpUser = () => {
                     type="password"
                     placeholder="password"
                     label="Password"
-                    error={formik.touched.password && Boolean(formik.errors.password)}
-                    helperText={formik.touched.password && formik.errors.password}
                 />
                 <TextField
                     value={formik.values.secondPassword}
@@ -149,40 +109,32 @@ export const SignUpUser = () => {
                     type="password"
                     placeholder="password"
                     label="Enter your password again"
-                    error={formik.touched.secondPassword && Boolean(formik.errors.secondPassword)}
-                    helperText={formik.touched.secondPassword && formik.errors.secondPassword}
                 />
-                <TextField
-                    value={formik.values.picture}
-                    onChange={formik.handleChange}
-                    id="input-with-icon-textfield"
-                    label="Your Avatar"
-                    variant="outlined"
-                    name='picture'
-                    sx={{
-                        ".MuiOutlinedInput-root": {
-                            paddingTop: "1rem",
-                            flexDirection: "column"
-                        },
-                        img: {
-                            paddingRight: "1rem"
-                        }
-                    }}
-                    InputProps={{
-                        startAdornment: <img src="https://via.placeholder.com/180x150/200"/>
-                    }}
-                    placeholder="Enter image caption..."
-                />
-                <Button type={'submit'} onClick={get}>Sign up user!</Button>
                 <Typography
-                    endDecorator={<Link href="/sign-in">Sign in</Link>}
+                    endDecorator={<FileUploadInput setBase64={setBase64}/>}
                     fontSize="sm"
                     sx={{alignSelf: 'center'}}
                 >
-                    Already have an account?
-
+                    Family photo:
                 </Typography>
-
+                <Button type={'submit'}>Sign up user!</Button>
+                {
+                    location.state?.from === 'login'
+                        ? <Typography
+                            endDecorator={<Link onClick={redirectToLogin}>Sign in</Link>}
+                            fontSize="sm"
+                            sx={{alignSelf: 'center'}}
+                        >
+                            Already have an account?
+                        </Typography>
+                        : <Typography
+                            endDecorator={<Button onClick={() => {
+                                replaceWithReload(ROUTES.HOME)
+                            }}>Return to profile</Button>}
+                            fontSize="sm"
+                            sx={{alignSelf: 'center'}}>
+                        </Typography>
+                }
             </Sheet>
         </form>
     );

@@ -1,9 +1,8 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import style from './ProfileInfo.module.css'
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {AppStateType} from "../../../redux/store";
 import {EditableSpan} from "../../EditableSpan/EditableSpan";
-import {authMeTC, setUserActionCreator} from "../../../redux/reducers/profileReducer";
 import {Typography} from "@mui/material";
 import {AuthorType} from "../../../redux/reducers/newsReducer";
 
@@ -11,10 +10,8 @@ import {AuthorType} from "../../../redux/reducers/newsReducer";
 export const ProfileInfo = () => {
     const profileInfo = useSelector<AppStateType, AuthorType>(state => state.profilePage.user)
     const [desc,setDesc] = useState('')
-    const dispatch = useDispatch<any>()
 
     useEffect(()=>{
-        // dispatch(authMeTC())
         setDesc(profileInfo.status)
     },[])
     return (

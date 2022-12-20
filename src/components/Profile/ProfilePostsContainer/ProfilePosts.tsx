@@ -1,19 +1,11 @@
-import {
-    createPostTC, getFamilySpaceTC, getPostsTC,
-    PostType,
-    UserType
-} from "../../../redux/reducers/profileReducer";
+import {createPostTC, getFamilySpaceTC, getPostsTC, PostType, UserType} from "../../../redux/reducers/profileReducer";
 import profilestyle from './ProfilePosts.module.css'
 import {Post} from "./Post/Post";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../redux/store";
 import {ChangeEvent, useEffect, useState} from "react";
-import {Button, Divider, Grid, IconButton, InputBase, Paper, TextField} from "@mui/material";
+import {Button, Divider, Grid, IconButton, InputBase, Paper} from "@mui/material";
 import FamilyCard from "../../FamilyCard/FamilyCard";
-import {v1} from "uuid";
-
-// Loader
-// Padding to status
 // Editable span
 // if familymember pic null return default
 
@@ -22,21 +14,15 @@ export const ProfilePosts = () => {
     const user = useSelector<AppStateType, UserType>(state => state.profilePage.user)
     const dispatch = useDispatch<any>()
     const [text, setText] = useState('')
+
     const onAddPost = () => {
         dispatch(createPostTC(text, text))
-
     }
+
     const onPostChange = (text: ChangeEvent<HTMLTextAreaElement>) => {
         setText(text.currentTarget.value)
     }
-    function encodeImageFileAsURL(element) {
-        var file = element.files[0];
-        var reader = new FileReader();
-        reader.onloadend = function() {
-            console.log('RESULT', reader.result)
-        }
-        reader.readAsDataURL(file);
-    }
+
     useEffect(() => {
         dispatch(getPostsTC())
         dispatch(getFamilySpaceTC())
@@ -67,8 +53,8 @@ export const ProfilePosts = () => {
                                     onChange={onPostChange}
                                     value={text}
                                 />
+                                {/*<FileUploadInput file={file} setFile={setFile}/>*/}
 
-                                <input type="file" onChange="encodeImageFileAsURL(this)"/>
                                 <Divider sx={{height: 28, m: 0.5}} orientation="vertical"/>
                                 <IconButton color="primary" sx={{p: '10px'}} aria-label="directions">
                                     <Button variant="outlined" onClick={onAddPost}>+</Button>
