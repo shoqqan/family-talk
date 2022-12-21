@@ -20,6 +20,7 @@ export const SignUpUser = () => {
     const [base64, setBase64] = useState<string>();
     const dispatch = useDispatch<any>();
     const familySpaceId = useSelector<AppStateType, number>(state => state.profilePage.familySpace.id);
+    const family_space_id = useSelector<AppStateType, number>(state => state.profilePage.user.family_space_id);
     const token = localStorage.getItem('token');
 
     useEffect(() => {
@@ -27,7 +28,7 @@ export const SignUpUser = () => {
             dispatch(authMeTC())
     }, [])
 
-    if (!familySpaceId && !token) {
+    if (!(familySpaceId || family_space_id) && !token) {
         replaceWithReload(ROUTES.SIGN_UP_FAMILY)
     }
 
@@ -45,9 +46,12 @@ export const SignUpUser = () => {
                 password,
                 name,
                 picture: base64,
-                family_space_id: familySpaceId
+                family_space_id: location.state?.from === 'login' ? familySpaceId : family_space_id
             }).then(() => {
-                redirectToLogin();
+                location.state?.from === 'login'
+                    ? redirectToLogin()
+                    : replaceWithReload(ROUTES.HOME);
+
             })
         },
     });

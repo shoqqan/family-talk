@@ -1,14 +1,39 @@
-.nav{
-    grid-area: n;
-    background-color: #202225;
-    min-height: 60em;
+
+.navMobile {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 60px;
+    width: 100vw;
     display: flex;
-    flex-direction: column;
-    padding: 2%;
-    row-gap: 2em;
+    justify-content: space-around;
+    background-color: #2F3136;
+    z-index: 7;
+}
+
+.navMobileItem {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.nav {
+    grid-area: n;
 }
 
 
-.active{
+.active {
     color: red;
+}
+
+@media only screen and (max-width: 700px) {
+    .nav {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 700px) {
+    .navMobile {
+        display: none !important;
+    }
 }

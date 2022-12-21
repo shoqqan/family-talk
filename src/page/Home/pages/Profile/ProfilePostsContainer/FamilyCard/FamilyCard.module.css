@@ -1,0 +1,35 @@
+
+.avatar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.cards {
+    width: 500px;
+    min-height: 520px;
+}
+@media only screen and (max-width: 1650px) {
+    .cards {
+        margin-top: 1rem;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .cards {
+        width: 400px;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .cards {
+        width: 425px;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .cards {
+        width: 320px;
+    }
+}

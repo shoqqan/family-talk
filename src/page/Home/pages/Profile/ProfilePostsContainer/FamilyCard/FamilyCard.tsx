@@ -13,9 +13,11 @@ import {useSelector} from "react-redux";
 import {AppStateType} from "../../../../../../redux/store";
 import {FamilySpaceType, getFamilySpaceTC} from "../../../../../../redux/reducers/profileReducer";
 import {EditableSpan} from "../../../../../../components/EditableSpan/EditableSpan";
+import s from './FamilyCard.module.css';
 
 export default function FamilyCard() {
     const family = useSelector<AppStateType, FamilySpaceType>(state => state.profilePage.familySpace)
+    const userId = useSelector<AppStateType, number>(state => state.profilePage.user.id)
 
     const [famName, setFamName] = useState('')
     const [famDesc, setFamDesc] = useState('')
@@ -24,10 +26,10 @@ export default function FamilyCard() {
         getFamilySpaceTC()
         setFamName(family.title)
         setFamDesc(family.status)
-    }, [])
+    }, [family.title, family.status])
 
     return (
-        <Card sx={{maxWidth: 345, height: 520, display: 'flex', flexDirection: 'column', bgcolor: '#202225'}}>
+        <Card className={s.cards} sx={{ display: 'flex', flexDirection: 'column', bgcolor: '#202225'}}>
             <CardMedia
                 component="img"
                 alt="Family picture"
@@ -48,10 +50,17 @@ export default function FamilyCard() {
                     replaceWithReload(ROUTES.SIGN_UP_USER)
                 }}>ADD FAMILY MEMBER</Button>
             </CardActions>
-            <AvatarGroup sx={{flexBasis: '10rem', color: '#FEFEFE', justifyContent: 'space-evenly'}}>
-                <Avatar/>
-                <Avatar/>
-                <Avatar/>
+            <AvatarGroup sx={{flexBasis: '10rem', color: '#FEFEFE', justifyContent: 'space-evenly', overflow: 'hidden'}}>
+                {
+                    family.members.filter((m) => {
+                        return  m.id !== userId
+                    }).map((m) => {
+                        return <div className={s.avatar}>
+                            <Avatar key={m.id} src={m.picture} sx={{width: 40, height: 40}}/>
+                            <span>{m.name}</span>
+                        </div>
+                    })
+                }
             </AvatarGroup>
         </Card>
     );

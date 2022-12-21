@@ -17,3 +17,36 @@
     color: #FFFFFF;
     font-size: 13px;
 }
+.post {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2px;
+    width: 700px;
+    margin-top: 5px;
+    margin-bottom: 4px;
+    padding: 20px
+}
+
+.post img {
+    width: 500px !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .post {
+        width: 400px !important;
+    }
+
+    .post img {
+        width: 300px !important;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .post {
+        width: 340px !important;
+    }
+
+    .post img {
+        width: 250px !important;
+    }
+}

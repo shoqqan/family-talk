@@ -1,8 +1,7 @@
 import React, {ChangeEvent, useState} from 'react';
-import {IconButton, TextField} from "@mui/material";
+import {TextField} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
-import ModeIcon from '@mui/icons-material/Mode';
 
 type EditableSpanPropsType = {
     value: string
@@ -32,8 +31,8 @@ export function EditableSpan(props: EditableSpanPropsType) {
         <TextField value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode} sx={{bgcolor: '#FEFEFE'}}/>
         : <div style={{display: 'flex', alignItems:'center', columnGap:10}}>
             <span>{props.value}</span>
-            <IconButton color="primary"onClick={activateEditMode}>
-                <ModeIcon/>
-            </IconButton>
+            {/*<IconButton color="primary"onClick={activateEditMode}>*/}
+            {/*    <ModeIcon/>*/}
+            {/*</IconButton>*/}
         </div>
 }

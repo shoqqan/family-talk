@@ -17,23 +17,17 @@ export const Post = React.memo((props: PropsType) => {
     return (
         <Paper
             component="form"
+            className={profilestyle.post}
             sx={{
                 p: '5px 10px',
                 bgcolor: '#40444B',
-                display: 'flex',
-                flexDirection: 'column',
-                rowGap: 2,
-                width: 700,
-
-                marginTop: 5,
-                marginBottom: 5
             }}>
             <div className={profilestyle.postInfo}>
                 <Avatar src={props.avatar} alt={''} sx={{width: 40, height: 40}}/>
                 <div className={profilestyle.postName}>{props.authorName}</div>
             </div>
             <div className={profilestyle.postText}>{props.postText}</div>
-            <Container sx={props.image?{}:{display:'none'}}><img style={{width: '500px'}} src={props.image}/></Container>
+            <Container sx={props.image?{display: 'flex', justifyContent: 'center'}:{display:'none'}}><img src={props.image}/></Container>
 
             <Stack spacing={2} direction="row">
                 <IconButton>

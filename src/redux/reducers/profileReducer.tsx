@@ -24,6 +24,7 @@ export type ChangeProfileStatusActionType = {
     title: string
 }
 export type UserType = {
+    id: number
     login: string,
     password: string,
     name: string,
@@ -111,7 +112,9 @@ export const setPostsActionCreator = (posts: PostType[]) => (
 export const MyAvatar = 'https://sun9-25.userapi.com/impg/cpvKKvfaw8jXHM7It9oO_QW4uH1uosHO87MaIw/SNEEKY7JZpk.jpg?size=1440x1800&quality=95&sign=4eca4098f257f21e1691b49981949322&type=album'
 
 const initialState: ProfilePageType = {
-    familySpace: {},
+    familySpace: {
+        members: []
+    },
     isLogged: false,
     user: {
         name: 'test',
@@ -120,7 +123,8 @@ const initialState: ProfilePageType = {
         status: 'Hey there i am using FamilyTalk!',
         password: 'test',
         login: 'test',
-        family_space_id: 1
+        family_space_id: 1,
+        id: 1,
     },
     posts: [],
     newPostText: ''

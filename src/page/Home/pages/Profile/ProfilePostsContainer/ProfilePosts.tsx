@@ -57,6 +57,7 @@ export const ProfilePosts = () => {
                         <div>
                             <form onSubmit={formik.handleSubmit}>
                                 <Paper
+                                    className={profilestyle.paper}
                                     sx={{
                                         p: '2px 4px',
                                         bgcolor: '#40444B',

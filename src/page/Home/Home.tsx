@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Header} from "./components/Header/Header";
-import {Navbar} from "./components/Navbar/Navbar";
+import {MobileNavbar, Navbar} from "./components/Navbar/Navbar";
 import {Outlet} from "react-router-dom";
 import s from './Home.module.css';
 import {authMeTC} from "../../redux/reducers/profileReducer";
@@ -18,6 +18,7 @@ export const Home = () => {
         <div className={s.home}>
             <Header/>
             <Navbar/>
+            <MobileNavbar/>
             <div className={s.content}>
                 <div className={loader ? s.loader : s.displayNone}>
                     <BallTriangle
