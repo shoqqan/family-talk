@@ -20,6 +20,7 @@ import {FileUploadInput} from "../../../../../components/FileUploadInput/FileUpl
 import CardActions from "@mui/material/CardActions";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import styled from "@emotion/styled";
+import {EmptyPlaceholeder} from "../../News/News";
 
 export const ProfilePosts = () => {
     const [base64, setBase64] = useState<string>();
@@ -163,7 +164,7 @@ const Posts = ({posts, user}: PostsPropsType) => {
 
                 />)
 
-            }) : null}
+            }) :  <EmptyPlaceholeder messages="You don't have yet any posts"/>}
         </div>
     );
 };
