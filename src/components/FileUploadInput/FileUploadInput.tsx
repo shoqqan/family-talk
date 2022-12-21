@@ -16,7 +16,7 @@ export const FileUploadInput = ({setBase64}: any) => {
         }
         const file = e.target.files[0];
         setFile(file);
-        if (file.size > 2000000) {
+        if (file.size > 150000) {
             return;
         }
         var reader = new FileReader();
