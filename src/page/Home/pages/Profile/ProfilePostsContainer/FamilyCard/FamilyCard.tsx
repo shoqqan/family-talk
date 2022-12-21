@@ -14,10 +14,12 @@ import {AppStateType} from "../../../../../../redux/store";
 import {FamilySpaceType, getFamilySpaceTC} from "../../../../../../redux/reducers/profileReducer";
 import {EditableSpan} from "../../../../../../components/EditableSpan/EditableSpan";
 import s from './FamilyCard.module.css';
+import {useTranslation} from "react-i18next";
 
 export default function FamilyCard() {
     const family = useSelector<AppStateType, FamilySpaceType>(state => state.profilePage.familySpace)
     const userId = useSelector<AppStateType, number>(state => state.profilePage.user.id)
+    const {t} = useTranslation();
 
     const [famName, setFamName] = useState('')
     const [famDesc, setFamDesc] = useState('')
@@ -48,7 +50,7 @@ export default function FamilyCard() {
             <CardActions sx={{}}>
                 <Button onClick={() => {
                     replaceWithReload(ROUTES.SIGN_UP_USER)
-                }}>ADD FAMILY MEMBER</Button>
+                }}>{t('PROFILE.ADD_FAMILY_MEMBER')}</Button>
             </CardActions>
             <AvatarGroup sx={{flexBasis: '10rem', color: '#FEFEFE', justifyContent: 'space-evenly', overflow: 'hidden'}}>
                 {

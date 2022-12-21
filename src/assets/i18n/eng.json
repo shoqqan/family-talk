@@ -1,0 +1,28 @@
+{
+  "NAVBAR": {
+    "PROFILE": "Profile",
+    "NEWS": "News",
+    "SETTINGS": "Settings"
+  },
+  "PROFILE": {
+    "POST_TITLE": "What's new? Create new post",
+    "ADD_FAMILY_MEMBER": "ADD FAMILY MEMBER"
+  },
+  "NEWS": {
+    "PAGINATION": "Page",
+    "NO_POSTS": "You don't have yet posts"
+  },
+  "SETTINGS": {
+    "TITLE": "Settings",
+    "LANGUAGE": "Language",
+    "THEME": "Theme"
+  },
+  "LOGIN": {
+    "WELCOME": "Welcome to FamilyTalk!",
+    "TITLE": "Sign in to continue",
+    "LOGIN": "Log in",
+    "DONT_HAVE_ACC": "Don't have an account?",
+    "SIGN_UP_FAM": "Sign up your family"
+  }
+
+}

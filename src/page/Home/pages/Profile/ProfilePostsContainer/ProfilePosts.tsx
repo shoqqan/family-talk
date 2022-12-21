@@ -21,6 +21,7 @@ import CardActions from "@mui/material/CardActions";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import styled from "@emotion/styled";
 import {EmptyPlaceholeder} from "../../News/News";
+import {useTranslation} from "react-i18next";
 
 export const ProfilePosts = () => {
     const [base64, setBase64] = useState<string>();
@@ -29,7 +30,7 @@ export const ProfilePosts = () => {
     const posts = useSelector<AppStateType, PostType[]>(state => state.profilePage.posts)
     const user = useSelector<AppStateType, UserType>(state => state.profilePage.user)
     const dispatch = useDispatch<any>()
-
+    const {t} = useTranslation();
 
     const formik = useFormik({
         initialValues: {
@@ -65,7 +66,7 @@ export const ProfilePosts = () => {
                                     }}
                                 >
                                     <CardActions>
-                                        <span style={{color: 'white', fontSize: '18px'}}>What's new? Create new post </span>
+                                        <span style={{color: 'white', fontSize: '18px'}}>{t('PROFILE.POST_TITLE')}</span>
                                         <ExpandMore
                                             expand={expand}
                                             onClick={() => {
@@ -161,6 +162,7 @@ const Posts = ({posts, user}: PostsPropsType) => {
                     postText={post.title}
                     avatar={user.picture}
                     authorName={user.name}
+                    time={post.createdAt}
 
                 />)
 

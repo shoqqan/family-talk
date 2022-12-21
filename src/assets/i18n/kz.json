@@ -1,0 +1,20 @@
+{
+  "NAVBAR": {
+    "PROFILE": "Профиль",
+    "NEWS": "Жаңалықтар",
+    "SETTINGS": "Параметрлер"
+  },
+  "PROFILE": {
+    "POST_TITLE": "Не жаңалық? Жаңа пост салу",
+    "ADD_FAMILY_MEMBER": "ОТБАСЫ МҮШЕСІН ҚОСУ"
+  },
+  "NEWS": {
+    "PAGINATION": "Бет",
+    "NO_POSTS": "You don't have yet posts"
+  },
+  "SETTINGS": {
+    "TITLE": "Параметрлер",
+    "LANGUAGE": "Тілі",
+    "THEME": "Тақырып"
+  }
+}

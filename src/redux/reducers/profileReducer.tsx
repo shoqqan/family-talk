@@ -176,6 +176,7 @@ export const authMeTC = () => (dispatch: Dispatch) => {
             setIsLoadingActionCreator(false)
         })
         .catch(() => {
+            setIsLoadingActionCreator(false)
             localStorage.removeItem('token')
         })
 }

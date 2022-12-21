@@ -10,6 +10,7 @@ type PropsType = {
     image?: string
     authorName: string
     avatar: string
+    time: string
 }
 
 export const Post = React.memo((props: PropsType) => {
@@ -24,7 +25,11 @@ export const Post = React.memo((props: PropsType) => {
             }}>
             <div className={profilestyle.postInfo}>
                 <Avatar src={props.avatar} alt={''} sx={{width: 40, height: 40}}/>
-                <div className={profilestyle.postName}>{props.authorName}</div>
+                <div className={profilestyle.postInfoBlock}>
+                    <div className={profilestyle.postName}>{props.authorName}</div>
+                    <div className={profilestyle.postName}>{new Date(props.time).toString()}</div>
+                </div>
+
             </div>
             <div className={profilestyle.postText}>{props.postText}</div>
             <Container sx={props.image?{display: 'flex', justifyContent: 'center'}:{display:'none'}}><img src={props.image}/></Container>

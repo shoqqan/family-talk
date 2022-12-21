@@ -1,15 +1,24 @@
 import React from 'react';
 import {ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import {People, Public, Settings} from "@mui/icons-material";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {ROUTES} from "../../../../helpers/roates";
 import s from './Navbar.module.css'
+import {useTranslation} from "react-i18next";
 
 export const Navbar = () => {
-    const navigate = useNavigate()
+
+    const navigate = useNavigate();
+    const {t} = useTranslation();
+
+    const location = useLocation();
+    const getIsActive = (key: string) => {
+        return location.pathname.includes(key)
+    }
     return (
         <nav className={s.nav}>
             <ListItemButton
+                className={getIsActive('profile') ? s.active : ""}
                 key={'Profile'}
                 sx={{py: 0, minHeight: 100, color: 'rgba(255,255,255,.8)'}}
                 onClick={() => {
@@ -17,16 +26,15 @@ export const Navbar = () => {
                 }}
             >
                 <ListItemIcon sx={{color: 'inherit'}}>
-
                     {<People/>}
-
                 </ListItemIcon>
                 <ListItemText
-                    primary={'Profile'}
+                    primary={t('NAVBAR.PROFILE')}
                     primaryTypographyProps={{fontSize: 14, fontWeight: 'medium'}}
                 />
             </ListItemButton>
             <ListItemButton
+                className={getIsActive('news') ? s.active : ""}
                 onClick={() => {
                     navigate(ROUTES.NEWS)
                 }}
@@ -36,12 +44,12 @@ export const Navbar = () => {
                     {<Public/>}
                 </ListItemIcon>
                 <ListItemText
-                    primary={'News'}
+                    primary={t('NAVBAR.NEWS')}
                     primaryTypographyProps={{fontSize: 14, fontWeight: 'medium'}}
                 />
             </ListItemButton>
             <ListItemButton
-
+                className={getIsActive('settings') ? s.active : ""}
                 key={'Settings'}
                 sx={{py: 0, minHeight: 100, color: 'rgba(255,255,255,.8)'}}
             >
@@ -52,7 +60,7 @@ export const Navbar = () => {
                     onClick={() => {
                         navigate(ROUTES.SETTINGS)
                     }}
-                    primary={'Settings'}
+                    primary={t('NAVBAR.SETTINGS')}
                     primaryTypographyProps={{fontSize: 14, fontWeight: 'medium'}}
                 />
             </ListItemButton>
@@ -61,12 +69,16 @@ export const Navbar = () => {
 };
 
 export const MobileNavbar = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const location = useLocation();
+    const getIsActive = (key: string) => {
+        return location.pathname.includes(key)
+    }
     return (
         <nav className={s.navMobile}>
             <ListItemButton
                 key={'Profile'}
-                className={s.navMobileItem}
+                className={getIsActive('profile') ? `${s.active} ${s.navMobileItem}` : s.navMobileItem}
                 sx={{py: 0, color: 'rgba(255,255,255,.8)'}}
                 onClick={() => {
                     navigate(ROUTES.PROFILE)
@@ -81,7 +93,7 @@ export const MobileNavbar = () => {
                     navigate(ROUTES.NEWS)
                 }}
                 key={'News'}
-                className={s.navMobileItem}
+                className={getIsActive('news') ? `${s.active} ${s.navMobileItem}` : s.navMobileItem}
                 sx={{py: 0, color: 'rgba(255,255,255,.8)'}}>
                 <ListItemIcon className={s.navMobileItem} sx={{color: 'inherit'}}>
                     {<Public/>}
@@ -89,7 +101,7 @@ export const MobileNavbar = () => {
             </ListItemButton>
             <ListItemButton
                 key={'Settings'}
-                className={s.navMobileItem}
+                className={getIsActive('settings') ? `${s.active} ${s.navMobileItem}` : s.navMobileItem}
                 sx={{py: 0, color: 'rgba(255,255,255,.8)'}}
                 onClick={() => {
                     navigate(ROUTES.SETTINGS)

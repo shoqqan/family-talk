@@ -8,10 +8,12 @@ import s from "./News.module.css";
 import profilestyle from "../Profile/ProfilePostsContainer/ProfilePosts.module.css";
 import {Paper} from "@mui/material";
 import Typography from "@mui/joy/Typography";
+import {useTranslation} from "react-i18next";
 
 export const News = () => {
     const newsPage = useSelector<AppStateType, NewsPageType>(state => state.newsPage)
     const dispatch = useDispatch<any>()
+    const {t} = useTranslation()
     const getNews = (nextPage: number) =>{
         dispatch(getNewsTC(nextPage))
     }
@@ -20,14 +22,21 @@ export const News = () => {
     },[])
 
     const news = newsPage.news.map((post) => {
-        return <Post id={post.id} image={post.picture} postText={post.title} authorName={post.author.name} avatar={post.author.picture}/>
+        return <Post
+            id={post.id}
+            image={post.picture}
+            postText={post.title}
+            authorName={post.author.name}
+            avatar={post.author.picture}
+            time={post.createdAt}
+        />
     })
 
 
     return (
         <div className={s.wrapper}>
             {
-                newsPage.news.length ? news : <EmptyPlaceholeder message="You don't have yet any posts"/>
+                newsPage.news.length ? news : <EmptyPlaceholeder message={t("NEWS.NO_POSTS")}/>
             }
 
             {!!newsPage.news.length &&  <PaginationControlled totalCount={Math.ceil(newsPage.totalCount / 10)} page={Number(newsPage.currentPage)}

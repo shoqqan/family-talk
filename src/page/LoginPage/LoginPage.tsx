@@ -24,7 +24,7 @@ const validate = ({login, password}: any) => {
     return errors;
 };
 
-export function LoginPage() {
+export function LoginPage({t}: any) {
     const dispatch = useDispatch()
 
     const formik = useFormik({
@@ -34,7 +34,6 @@ export function LoginPage() {
         },
         validate,
         onSubmit: ({login, password}) => {
-            // console.log(login, password)
             axios.post('https://family-talk.up.railway.app/auth/login', {
                 login,
                 password,
@@ -63,13 +62,11 @@ export function LoginPage() {
                 }}>
                     <div>
                         <Typography sx={{marginBottom: 2, fontWeight: 'bold', fontSize: 25}} level="h4" component="h1">
-                            Welcome to FamilyTalk!
+                            {t("LOGIN.WELCOME")}
                         </Typography>
                         <Typography level="body2" color={"neutral"}
-                                    sx={{color: '##66667C'}}>Sign in to
-                            continue.</Typography>
+                                    sx={{color: '##66667C'}}>{t("LOGIN.TITLE")}</Typography>
                     </div>
-
                     <TextField
                         value={formik.values.login}
                         onChange={formik.handleChange}
@@ -91,15 +88,15 @@ export function LoginPage() {
                         helperText={formik.touched.password && formik.errors.password}
                     />
                     <Button disabled={formik.touched && !formik.isValid} type={'submit'} sx={{mt: 1}}>
-                        Log in
+                        {t("LOGIN.TITLE")}
                     </Button>
                     <Typography
-                        endDecorator={<Link onClick={() => replaceWithReload(ROUTES.SIGN_UP_FAMILY)}>Sign up your
-                            family</Link>}
+                        endDecorator={<Link
+                            onClick={() => replaceWithReload(ROUTES.SIGN_UP_FAMILY)}>{t("LOGIN.SIGN_UP_FAM")}</Link>}
                         fontSize="sm"
                         sx={{alignSelf: 'center'}}
                     >
-                        Don't have an account?
+                        {t("LOGIN.TITLE")}
                     </Typography>
                 </Sheet>
             </form>

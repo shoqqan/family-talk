@@ -11,6 +11,12 @@
     column-gap: 0.7em;
 }
 
+.postInfoBlock{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .postName{
     font-weight: bold;
     margin-top: 0.5%;

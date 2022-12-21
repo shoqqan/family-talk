@@ -1,0 +1,20 @@
+{
+  "NAVBAR": {
+    "PROFILE": "Профиль",
+    "NEWS": "Новости",
+    "SETTINGS": "Настройки"
+  },
+  "PROFILE": {
+    "POST_TITLE": "Что нового? Добавить новую публикацию",
+    "ADD_FAMILY_MEMBER": "ДОБАВИТЬ УЧАСТНИКА СЕМЬИ"
+  },
+  "NEWS": {
+    "PAGINATION": "Страница",
+    "NO_POSTS": "You don't have yet posts"
+  },
+  "SETTINGS": {
+    "TITLE": "Настройки",
+    "LANGUAGE": "Язык",
+    "THEME": "Тема"
+  }
+}
