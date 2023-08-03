@@ -84,7 +84,7 @@ const SignUpFamily = () => {
                         <Typography sx={{marginBottom: 2, fontWeight: 'bold', fontSize: 25}} level="h4" component="h1">
                             Registration FamilyTalk!
                         </Typography>
-                        <Typography level="body2" color={"neutral"}>Sign up your family to
+                        <Typography color={"neutral"}>Sign up your family to
                             continue.</Typography>
                     </div>
                     <TextField
