@@ -20,7 +20,7 @@ const Settings = ({t, changeLange, selectedLanguage, setSelectedLanguage}: any) 
             color: "#FEFEFE"
         }}>
             <div>
-                <Typography sx={{marginBottom: 2, fontWeight: 'bold', fontSize: 25}} level="h4" component="h1">
+                <Typography sx={{marginBottom: 2, fontWeight: 'bold', fontSize: 25}} component="h1">
                     {t("SETTINGS.TITLE")}
                 </Typography>
                 <Typography color={"neutral"}>{t("SETTINGS.LANGUAGE")}</Typography>

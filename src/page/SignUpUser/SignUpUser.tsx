@@ -79,7 +79,7 @@ export const SignUpUser = () => {
                         <Typography sx={{marginBottom: 2, fontWeight: 'bold', fontSize: 25}} level="h4" component="h1">
                             Registration User!
                         </Typography>
-                        <Typography level="body2" color={"neutral"}>Sign up user!</Typography>
+                        <Typography color={"neutral"}>Sign up user!</Typography>
                     </div>
                     <TextField
                         value={formik.values.name}
