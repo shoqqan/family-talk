@@ -66,7 +66,7 @@ export function LoginPage({t}: any) {
                         <Typography sx={{marginBottom: 2, fontWeight: 'bold', fontSize: 25}} level="h4" component="h1">
                             {t("LOGIN.WELCOME")}
                         </Typography>
-                        <Typography level="body2" color={"neutral"}
+                        <Typography color={"neutral"}
                                     sx={{color: '##66667C'}}>{t("LOGIN.TITLE")}</Typography>
                     </div>
                     <TextField
