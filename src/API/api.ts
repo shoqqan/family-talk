@@ -4,7 +4,7 @@ const instance = (): AxiosInstance => {
     const token = localStorage.getItem('token')
     return axios.create(
         {
-            baseURL: 'https://family-talk.up.railway.app/',
+            baseURL: 'https://family-talk-back-production.up.railway.app/',
             headers: {Authorization: `Bearer ${token}`}
         }
     )

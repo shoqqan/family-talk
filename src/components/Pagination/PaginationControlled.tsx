@@ -19,8 +19,8 @@ export function PaginationControlled(props: PaginationControlledPropsType) {
 
     return (
         <Stack spacing={2}>
-            <Typography>{t('NEWS.PAGINATION')}{props.page}</Typography>
-            <Pagination count={props.totalCount} page={props.page} onChange={handleChange}/>
+            <Typography sx={{color:'white'}}>{t('NEWS.PAGINATION')}{props.page}</Typography>
+            <Pagination sx={{color:'white'}} count={props.totalCount} page={props.page} onChange={handleChange}/>
         </Stack>
     );
 }

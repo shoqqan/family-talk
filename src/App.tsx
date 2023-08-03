@@ -54,7 +54,7 @@ function App() {
                     }/>
                     <Route path={''} element={<Navigate to={ROUTES.PROFILE}/>}/>
                 </Route>
-                <Route path={'/'} element={<Navigate to={ROUTES.HOME}/>}/>
+                <Route path={'/'} element={<Navigate to={ROUTES.SIGN_IN}/>}/>
             </Routes>
         </div>
     );

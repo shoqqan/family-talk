@@ -51,7 +51,7 @@ const SignUpFamily = () => {
         },
         validate: universalValidator(),
         onSubmit: ({familyName, status, login, password}) => {
-            axios.post('https://family-talk.up.railway.app/family-space', {
+            axios.post('https://family-talk-back-production.up.railway.app/family-space', {
                 login,
                 title: familyName,
                 password,

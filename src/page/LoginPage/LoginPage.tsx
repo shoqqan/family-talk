@@ -29,12 +29,12 @@ export function LoginPage({t}: any) {
     const dispatch = useDispatch()
     const formik = useFormik({
         initialValues: {
-            login: '',
-            password: '',
+            login: 'seilov',
+            password: '12345678',
         },
         validate,
         onSubmit: ({login, password}) => {
-            axios.post('https://family-talk.up.railway.app/auth/login', {
+            axios.post(`https://family-talk-back-production.up.railway.app/auth/login`, {
                 login,
                 password,
             }).then((res) => {

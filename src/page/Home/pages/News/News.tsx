@@ -21,7 +21,7 @@ export const News = () => {
         getNews(Number(newsPage.currentPage))
     },[])
 
-    const news = newsPage.news.map((post) => {
+    const news = newsPage.news.reverse().map((post) => {
         return <Post
             id={post.id}
             image={post.picture}

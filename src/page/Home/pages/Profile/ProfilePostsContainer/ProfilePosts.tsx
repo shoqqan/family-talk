@@ -81,6 +81,7 @@ export const ProfilePosts = () => {
                                     <Collapse in={expand}>
                                         <Paper
                                             sx={{
+                                                color:'white',
                                                 bgcolor: '#40444B',
                                                 display: 'flex',
                                                 flexDirection: 'column',
@@ -88,7 +89,9 @@ export const ProfilePosts = () => {
                                             }}
                                         >
                                         <TextField
-                                            style={{paddingBottom: '1rem'}}
+                                            color='secondary'
+                                            sx={{color:'white'}}
+                                            style={{color:'white', paddingBottom: '1rem'}}
                                             value={formik.values.title}
                                             onChange={formik.handleChange}
                                             name="title"
@@ -98,19 +101,7 @@ export const ProfilePosts = () => {
                                             error={formik.touched.title && Boolean(formik.errors.title)}
                                             helperText={formik.touched.title && formik.errors.title}
                                         />
-                                        <TextField
-                                            value={formik.values.content}
-                                            onChange={formik.handleChange}
-                                            style={{paddingBottom: '1rem'}}
-                                            name="content"
-                                            type="text"
-                                            placeholder="Content of post"
-                                            label="Content"
-                                            rows={3}
-                                            multiline
-                                            error={formik.touched.content && Boolean(formik.errors.content)}
-                                            helperText={formik.touched.content && formik.errors.content}
-                                        />
+
 
                                         <Typography
                                             endDecorator={<FileUploadInput setBase64={setBase64}/>}

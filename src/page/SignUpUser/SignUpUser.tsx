@@ -41,7 +41,7 @@ export const SignUpUser = () => {
         },
         validate: universalValidator(),
         onSubmit: ({name, login, password}) => {
-            axios.post('https://family-talk.up.railway.app/auth/registration', {
+            axios.post('https://family-talk-back-production.up.railway.app/auth/registration', {
                 login,
                 password,
                 name,
