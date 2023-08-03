@@ -23,7 +23,7 @@ const Settings = ({t, changeLange, selectedLanguage, setSelectedLanguage}: any) 
                 <Typography sx={{marginBottom: 2, fontWeight: 'bold', fontSize: 25}} level="h4" component="h1">
                     {t("SETTINGS.TITLE")}
                 </Typography>
-                <Typography level="body2" color={"neutral"}>{t("SETTINGS.LANGUAGE")}</Typography>
+                <Typography color={"neutral"}>{t("SETTINGS.LANGUAGE")}</Typography>
             </div>
             <RadioGroup
                 aria-labelledby="demo-controlled-radio-buttons-group"
