@@ -9,6 +9,7 @@ import axios from "axios";
 import {setLoggedActionCreator} from "../../redux/reducers/profileReducer";
 import {useDispatch} from "react-redux";
 import s from './LoginPage.module.css';
+import {useTranslation} from "react-i18next";
 
 const validate = ({login, password}: any) => {
     const errors: any = {};
@@ -26,7 +27,6 @@ const validate = ({login, password}: any) => {
 
 export function LoginPage({t}: any) {
     const dispatch = useDispatch()
-
     const formik = useFormik({
         initialValues: {
             login: '',
