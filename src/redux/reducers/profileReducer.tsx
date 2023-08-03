@@ -181,27 +181,27 @@ export const authMeTC = () => (dispatch: Dispatch) => {
         })
 }
 
-export const getPostsTC = () => (dispatch: Dispatch) => {
+export const getPostsTC = (navigate:any) => (dispatch: Dispatch) => {
     dispatch(setIsLoadingActionCreator(true))
     postsApi.get().then((res) => {
         dispatch(setPostsActionCreator(res.posts.reverse()))
     })
         .catch(() => {
-            replaceWithReload(ROUTES.SIGN_IN)
+            navigate('/sign-in')
         })
         .finally(() => {
             dispatch(setIsLoadingActionCreator(false))
         })
 }
 
-export const createPostTC = (title: string, content: string, pircture?: string) => (dispatch: Dispatch) => {
+export const createPostTC = (title: string, content: string,navigate:any, pircture?: string) => (dispatch: Dispatch) => {
     dispatch(setIsLoadingActionCreator(true))
     postsApi.post(title, content, pircture)
         .then((res) => {
             dispatch(addPostActionCreator(res))
         })
         .catch(() => {
-            replaceWithReload(ROUTES.SIGN_IN)
+            navigate('/sign-in')
         })
         .finally(() => {
             dispatch(setIsLoadingActionCreator(false))

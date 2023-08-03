@@ -22,11 +22,12 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import styled from "@emotion/styled";
 import {EmptyPlaceholeder} from "../../News/News";
 import {useTranslation} from "react-i18next";
+import {useNavigate} from "react-router-dom";
 
 export const ProfilePosts = () => {
     const [base64, setBase64] = useState<string>();
     const [expand, setExpand] = useState(false);
-
+    const navigate = useNavigate()
     const posts = useSelector<AppStateType, PostType[]>(state => state.profilePage.posts)
     const user = useSelector<AppStateType, UserType>(state => state.profilePage.user)
     const dispatch = useDispatch<any>()
@@ -39,14 +40,14 @@ export const ProfilePosts = () => {
         },
         validate: universalValidator(['content']),
         onSubmit: ({title, content}) => {
-            dispatch(createPostTC(title, content, base64))
+            dispatch(createPostTC(title, content, navigate, base64))
             setExpand(false)
             formik.resetForm();
         },
     });
 
     useEffect(() => {
-        dispatch(getPostsTC())
+        dispatch(getPostsTC(navigate))
         dispatch(getFamilySpaceTC())
 
     }, [])

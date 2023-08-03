@@ -10,6 +10,7 @@ import {setLoggedActionCreator} from "../../redux/reducers/profileReducer";
 import {useDispatch} from "react-redux";
 import s from './LoginPage.module.css';
 import {useTranslation} from "react-i18next";
+import {useNavigate} from "react-router-dom";
 
 const validate = ({login, password}: any) => {
     const errors: any = {};
@@ -27,6 +28,7 @@ const validate = ({login, password}: any) => {
 
 export function LoginPage({t}: any) {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const formik = useFormik({
         initialValues: {
             login: 'seilov',
@@ -40,7 +42,7 @@ export function LoginPage({t}: any) {
             }).then((res) => {
                 localStorage.setItem('token', res.data.token)
                 dispatch(setLoggedActionCreator(true))
-                replaceWithReload('home')
+                navigate('/home')
             })
         },
     });
@@ -92,7 +94,9 @@ export function LoginPage({t}: any) {
                     </Button>
                     <Typography
                         endDecorator={<Link
-                            onClick={() => replaceWithReload(ROUTES.SIGN_UP_FAMILY)}>{t("LOGIN.SIGN_UP_FAM")}</Link>}
+                            onClick={() =>
+                            navigate('/sign-up-family')
+                        }>{t("LOGIN.SIGN_UP_FAM")}</Link>}
                         fontSize="sm"
                         sx={{alignSelf: 'center'}}
                     >

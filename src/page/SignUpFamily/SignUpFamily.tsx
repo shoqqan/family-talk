@@ -38,7 +38,7 @@ const SignUpFamily = () => {
     const navigate = useNavigate();
 
     if (isLogged) {
-        replaceWithReload(ROUTES.HOME)
+        navigate('/home')
     }
 
     const formik = useFormik({
@@ -157,7 +157,9 @@ const SignUpFamily = () => {
                         Sign
                     </Button>
                     <Typography
-                        endDecorator={<Link onClick={() => replaceWithReload(ROUTES.SIGN_IN)}>Sign in</Link>}
+                        endDecorator={<Link onClick={() =>
+                            navigate('/sign-in')
+                        }>Sign in</Link>}
                         fontSize="sm"
                         sx={{alignSelf: 'center'}}
                     >

@@ -9,7 +9,7 @@ import {AppStateType} from "../../redux/store";
 import {replaceWithReload} from "../../helpers/replaceWithReload";
 import {ROUTES} from "../../helpers/roates";
 import {FileUploadInput} from "../../components/FileUploadInput/FileUploadInput";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {authMeTC} from "../../redux/reducers/profileReducer";
 import s from '../LoginPage/LoginPage.module.css';
 import {universalValidator} from "../SignUpFamily/SignUpFamily";
@@ -22,14 +22,14 @@ export const SignUpUser = () => {
     const familySpaceId = useSelector<AppStateType, number>(state => state.profilePage.familySpace.id);
     const family_space_id = useSelector<AppStateType, number>(state => state.profilePage.user.family_space_id);
     const token = localStorage.getItem('token');
-
+    const navigate = useNavigate()
     useEffect(() => {
         if (token)
             dispatch(authMeTC())
     }, [])
 
     if (!(familySpaceId || family_space_id) && !token) {
-        replaceWithReload(ROUTES.SIGN_UP_FAMILY)
+        navigate('/sign-up-family')
     }
 
     const formik = useFormik({
@@ -50,14 +50,14 @@ export const SignUpUser = () => {
             }).then(() => {
                 location.state?.from === 'login'
                     ? redirectToLogin()
-                    : replaceWithReload(ROUTES.HOME);
+                    : navigate('/home');
 
             })
         },
     });
 
     const redirectToLogin = () => {
-        replaceWithReload(ROUTES.SIGN_IN);
+        navigate('sign-in')
     }
 
     return (
@@ -142,7 +142,7 @@ export const SignUpUser = () => {
                             </Typography>
                             : <Typography
                                 endDecorator={<Button onClick={() => {
-                                    replaceWithReload(ROUTES.HOME)
+                                    navigate('home')
                                 }}>Return to profile</Button>}
                                 fontSize="sm"
                                 sx={{alignSelf: 'center'}}>

@@ -7,14 +7,15 @@ import {useDispatch} from "react-redux";
 import LogoutIcon from '@mui/icons-material/Logout';
 import {replaceWithReload} from "../../../../helpers/replaceWithReload";
 import {ROUTES} from "../../../../helpers/roates";
+import {useNavigate} from "react-router-dom";
 
 
 export const Header = () => {
-
+    const navigate = useNavigate()
     const dispatch = useDispatch();
     const logOut = () => {
         dispatch(setLoggedActionCreator(false))
-        replaceWithReload(ROUTES.SIGN_IN)
+        navigate('/sign-in')
         localStorage.removeItem('token')
     }
     return (
@@ -24,7 +25,7 @@ export const Header = () => {
 
                 <Typography sx={{fontSize: 25, color: '#FEFEFE', marginTop: '0.6rem'}}>FamilyTalk</Typography>
             </div>
-            <IconButton onClick={logOut} sx={{color:'#FEFEFE'}}>
+            <IconButton onClick={logOut} sx={{color: '#FEFEFE'}}>
                 <LogoutIcon/>
             </IconButton>
         </header>
